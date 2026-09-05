@@ -1,0 +1,51 @@
+﻿@model HRMS.ViewModels.Department.DepartmentViewModel
+
+@{
+    ViewData["Title"] = "Department Details";
+}
+
+<div class="container mt-4">
+
+    <div class="mb-4">
+        <h2 class="fw-bold">Department Details</h2>
+        <p class="text-muted">
+            View department information.
+        </p>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <div class="mb-3">
+                <label class="fw-semibold">Department Name</label>
+                <p class="form-control-plaintext">
+                    @Model.DepartmentName
+                </p>
+            </div>
+
+            <div class="mb-4">
+                <label class="fw-semibold">Description</label>
+                <p class="form-control-plaintext">
+                    @(string.IsNullOrWhiteSpace(Model.Description)
+                        ? "No description available"
+                        : Model.Description)
+                </p>
+            </div>
+
+            <div>
+                <a asp-action="Edit"
+                   asp-route-id="@Model.DepartmentId"
+                   class="btn btn-primary">
+                    Edit
+                </a>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary ms-2">
+                    Back to Departments
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</div>

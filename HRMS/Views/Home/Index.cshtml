@@ -1,0 +1,315 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="container-fluid">
+
+    <!-- HERO SECTION -->
+    <div class="card border-0 shadow-sm mb-4"
+         style="background: linear-gradient(135deg, #212529, #343a40); color: white;">
+
+        <div class="card-body p-5">
+
+            <div class="row align-items-center">
+
+                <div class="col-lg-8">
+
+                    <span class="badge bg-light text-dark mb-3 px-3 py-2">
+                        HRMS PORTAL
+                    </span>
+
+                    <h1 class="display-5 fw-bold mb-3">
+                        Human Resource Management System
+                    </h1>
+
+                    <p class="lead mb-4">
+                        Manage employees, departments, attendance,
+                        leaves and other HR operations from one place.
+                    </p>
+
+                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <a asp-controller="Home"
+                           asp-action="Index"
+                           class="btn btn-light px-4">
+                            Go to Dashboard
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-area="Identity"
+                           asp-page="/Account/Login"
+                           class="btn btn-light px-4 me-2">
+                            Login
+                        </a>
+
+                        <a asp-area="Identity"
+                           asp-page="/Account/Register"
+                           class="btn btn-outline-light px-4">
+                            Register
+                        </a>
+                    }
+
+                </div>
+
+                <div class="col-lg-4 text-center mt-4 mt-lg-0">
+
+                    <div style="font-size: 110px;">
+                        👥
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- HRMS MODULES -->
+    <div class="mb-4">
+
+        <h4 class="fw-bold mb-1">
+            HRMS Modules
+        </h4>
+
+        <p class="text-muted">
+            Everything you need to manage your workforce.
+        </p>
+
+    </div>
+
+
+    <div class="row g-4">
+
+        <!-- Employee Management -->
+        <div class="col-xl-3 col-md-6">
+
+            <div class="card h-100 p-4">
+
+                <div class="fs-1 mb-3">
+                    👥
+                </div>
+
+                <h5 class="fw-bold">
+                    Employee Management
+                </h5>
+
+                <p class="text-muted">
+                    Maintain employee profiles, details and
+                    organizational information.
+                </p>
+
+                <a href="#"
+                   class="btn btn-outline-primary mt-auto">
+                    Explore
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Departments -->
+        <div class="col-xl-3 col-md-6">
+
+            <div class="card h-100 p-4">
+
+                <div class="fs-1 mb-3">
+                    🏢
+                </div>
+
+                <h5 class="fw-bold">
+                    Departments
+                </h5>
+
+                <p class="text-muted">
+                    Organize employees and manage departments
+                    within the organization.
+                </p>
+
+                <a href="#"
+                   class="btn btn-outline-primary mt-auto">
+                    Explore
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Attendance -->
+        <div class="col-xl-3 col-md-6">
+
+            <div class="card h-100 p-4">
+
+                <div class="fs-1 mb-3">
+                    🕐
+                </div>
+
+                <h5 class="fw-bold">
+                    Attendance
+                </h5>
+
+                <p class="text-muted">
+                    Track employee attendance and maintain
+                    daily attendance records.
+                </p>
+
+                <a href="#"
+                   class="btn btn-outline-primary mt-auto">
+                    Explore
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Leave -->
+        <div class="col-xl-3 col-md-6">
+
+            <div class="card h-100 p-4">
+
+                <div class="fs-1 mb-3">
+                    📝
+                </div>
+
+                <h5 class="fw-bold">
+                    Leave Management
+                </h5>
+
+                <p class="text-muted">
+                    Submit, review and manage employee leave
+                    requests.
+                </p>
+
+                <a href="#"
+                   class="btn btn-outline-primary mt-auto">
+                    Explore
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SYSTEM FEATURES -->
+    <div class="row g-4 mt-2">
+
+        <div class="col-lg-7">
+
+            <div class="card h-100 p-4">
+
+                <h5 class="fw-bold mb-3">
+                    Why HRMS?
+                </h5>
+
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+                        <div class="d-flex gap-3">
+                            <span class="fs-4">🔐</span>
+                            <div>
+                                <strong>Secure Access</strong>
+                                <p class="text-muted small mb-0">
+                                    Role-based access using Identity.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="d-flex gap-3">
+                            <span class="fs-4">📊</span>
+                            <div>
+                                <strong>Centralized Data</strong>
+                                <p class="text-muted small mb-0">
+                                    Manage HR information in one system.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="d-flex gap-3">
+                            <span class="fs-4">⚡</span>
+                            <div>
+                                <strong>Easy Management</strong>
+                                <p class="text-muted small mb-0">
+                                    Simplify everyday HR operations.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="d-flex gap-3">
+                            <span class="fs-4">📱</span>
+                            <div>
+                                <strong>Responsive UI</strong>
+                                <p class="text-muted small mb-0">
+                                    Works across different screen sizes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ROLES -->
+        <div class="col-lg-5">
+
+            <div class="card h-100 p-4">
+
+                <h5 class="fw-bold mb-3">
+                    User Roles
+                </h5>
+
+                <div class="d-flex justify-content-between
+                    align-items-center border-bottom py-3">
+
+                    <span>👑 Admin</span>
+                    <span class="badge bg-dark">Full Access</span>
+
+                </div>
+
+                <div class="d-flex justify-content-between
+                    align-items-center border-bottom py-3">
+
+                    <span>👩‍💼 HR</span>
+                    <span class="badge bg-primary">HR Management</span>
+
+                </div>
+
+                <div class="d-flex justify-content-between
+                    align-items-center border-bottom py-3">
+
+                    <span>👨‍💼 Manager</span>
+                    <span class="badge bg-secondary">Team Management</span>
+
+                </div>
+
+                <div class="d-flex justify-content-between
+                    align-items-center py-3">
+
+                    <span>👤 Employee</span>
+                    <span class="badge bg-success">Self Service</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

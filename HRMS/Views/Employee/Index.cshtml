@@ -1,0 +1,79 @@
+﻿@model IEnumerable<HRMS.ViewModels.Employee.EmployeeViewModel>
+
+@{
+    ViewData["Title"] = "Employees";
+}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold">Employees</h2>
+            <p class="text-muted mb-0">
+                Manage all employees in the organization.
+            </p>
+        </div>
+
+        <a asp-action="Create" class="btn btn-primary">
+            + Add Employee
+        </a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Designation</th>
+                            <th>Joining Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var employee in Model)
+                        {
+                            <tr>
+                                <td>@employee.EmployeeName</td>
+                                <td>@employee.Email</td>
+                                <td>@employee.PhoneNumber</td>
+                                <td>@employee.Designation</td>
+                                <td>
+                                    @employee.JoiningDate.ToString("dd MMM yyyy")
+                                </td>
+                                <td>
+                                    <a asp-action="Details"
+                                       asp-route-id="@employee.EmployeeId"
+                                       class="btn btn-sm btn-outline-info">
+                                        Details
+                                    </a>
+
+                                    <a asp-action="Edit"
+                                       asp-route-id="@employee.EmployeeId"
+                                       class="btn btn-sm btn-outline-primary">
+                                        Edit
+                                    </a>
+
+                                    <a asp-action="Delete"
+                                       asp-route-id="@employee.EmployeeId"
+                                       class="btn btn-sm btn-outline-danger">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>

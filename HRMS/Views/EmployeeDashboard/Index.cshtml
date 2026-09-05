@@ -1,0 +1,108 @@
+﻿@model HRMS.Models.Employee
+@{
+    ViewData["Title"] = "Employee Dashboard";
+}
+
+<div class="container mt-4">
+
+    <div class="mb-4">
+        <h2 class="fw-bold">Employee Dashboard</h2>
+        <p class="text-muted">
+            Welcome, @Model.EmployeeName 👋
+        </p>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- My Profile -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">My Profile</h5>
+                    <p class="card-text text-muted">
+                        View your personal and employment details.
+                    </p>
+
+                    <a asp-controller="EmployeeDashboard"
+                       asp-action="Profile"
+                       class="btn btn-primary">
+                        View Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Attendance -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">My Attendance</h5>
+                    <p class="card-text text-muted">
+                        View your attendance records.
+                    </p>
+
+                    <a asp-controller="EmployeeDashboard"
+                       asp-action="Attendance"
+                       class="btn btn-primary">
+                        View Attendance
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Leaves -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">My Leaves</h5>
+                    <p class="card-text text-muted">
+                        Apply for leave and check leave status.
+                    </p>
+
+                    <a asp-controller="EmployeeDashboard"
+                       asp-action="Leaves"
+                       class="btn btn-primary">
+                        View Leaves
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Payroll -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">My Payroll</h5>
+                    <p class="card-text text-muted">
+                        View your salary and payroll information.
+                    </p>
+                    <a asp-controller="EmployeeDashboard"
+                       asp-action="Payroll"
+                       class="btn btn-primary">
+                        Payroll
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Performance -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">My Performance</h5>
+                    <p class="card-text text-muted">
+                        View your performance reviews and ratings.
+                    </p>
+
+                    <a asp-controller="EmployeeDashboard"
+                       asp-action="Performance"
+                       class="btn btn-primary">
+                        View Performance
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>s

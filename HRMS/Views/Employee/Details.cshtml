@@ -1,0 +1,83 @@
+﻿@model HRMS.ViewModels.Employee.EmployeeViewModel
+
+@{
+    ViewData["Title"] = "Employee Details";
+}
+
+<div class="container mt-4">
+
+    <div class="mb-4">
+        <h2 class="fw-bold">Employee Details</h2>
+        <p class="text-muted">
+            View employee information.
+        </p>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+                    <label class="fw-semibold">Employee Name</label>
+                    <p class="form-control-plaintext">
+                        @Model.EmployeeName
+                    </p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="fw-semibold">Email</label>
+                    <p class="form-control-plaintext">
+                        @Model.Email
+                    </p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="fw-semibold">Phone Number</label>
+                    <p class="form-control-plaintext">
+                        @Model.PhoneNumber
+                    </p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="fw-semibold">Designation</label>
+                    <p class="form-control-plaintext">
+                        @Model.Designation
+                    </p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="fw-semibold">Joining Date</label>
+                    <p class="form-control-plaintext">
+                        @Model.JoiningDate.ToString("dd MMM yyyy")
+                    </p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="fw-semibold">Department</label>
+                    <p class="form-control-plaintext">
+                        @Model.DepartmentId
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="mt-3">
+
+                <a asp-action="Edit"
+                   asp-route-id="@Model.EmployeeId"
+                   class="btn btn-primary">
+                    Edit
+                </a>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary ms-2">
+                    Back to Employees
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

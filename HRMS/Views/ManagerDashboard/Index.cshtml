@@ -1,0 +1,114 @@
+﻿@model HRMS.Models.Employee
+
+@{
+    ViewData["Title"] = "Manager Dashboard";
+}
+
+<div class="container mt-4">
+
+    <div class="mb-4">
+        <h2 class="fw-bold">
+            Welcome, @Model.EmployeeName
+        </h2>
+
+        <p class="text-muted">
+            Manager Dashboard
+        </p>
+    </div>
+
+    <div class="row">
+
+        <!-- My Profile -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="fw-bold">My Profile</h5>
+
+                    <p class="text-muted">
+                        View your profile details.
+                    </p>
+
+                    <a asp-controller="EmployeeDashboard"
+                       asp-action="Profile"
+                       class="btn btn-primary">
+                        View Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Employees -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="fw-bold">My Team</h5>
+
+                    <p class="text-muted">
+                        View employees in your team.
+                    </p>
+
+                    <a asp-action="Employees"
+                       class="btn btn-primary">
+                        View Team
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Attendance -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="fw-bold">Attendance</h5>
+
+                    <p class="text-muted">
+                        View team attendance.
+                    </p>
+
+                    <a asp-action="Attendance"
+                       class="btn btn-primary">
+                        View Attendance
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leave Requests -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="fw-bold">Leave Requests</h5>
+
+                    <p class="text-muted">
+                        Approve or reject employee leave requests.
+                    </p>
+
+                    <a asp-action="Leaves"
+                       class="btn btn-primary">
+                        Manage Leaves
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="fw-bold">Performance</h5>
+
+                    <p class="text-muted">
+                        Manage employee performance reviews.
+                    </p>
+
+                    <a asp-action="Performance"
+                       class="btn btn-primary">
+                        Manage Performance
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

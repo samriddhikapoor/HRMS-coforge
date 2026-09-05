@@ -1,0 +1,157 @@
+﻿@model IEnumerable<HRMS.Models.Attendance>
+
+@{
+    ViewData["Title"] = "My Attendance";
+}
+
+<div class="container mt-4">
+
+    <div class="mb-4">
+        <h2 class="fw-bold">My Attendance</h2>
+        <p class="text-muted">
+            View your attendance records.
+        </p>
+    </div>
+
+    @if (TempData["AttendanceMessage"] != null)
+    {
+        <div class="alert alert-info">
+            @TempData["AttendanceMessage"]
+        </div>
+    }
+
+    <!-- Today's Attendance -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+
+            <h5 class="fw-bold mb-3">
+                Today's Attendance
+            </h5>
+
+            <div class="d-flex gap-2">
+
+                <form asp-controller="EmployeeDashboard"
+                      asp-action="CheckIn"
+                      method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <button type="submit"
+                            class="btn btn-success">
+                        Check In
+                    </button>
+
+                </form>
+
+                <form asp-controller="EmployeeDashboard"
+                      asp-action="CheckOut"
+                      method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <button type="submit"
+                            class="btn btn-danger">
+                        Check Out
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Attendance History -->
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <h5 class="fw-bold mb-3">
+                Attendance History
+            </h5>
+
+            @if (Model != null && Model.Any())
+            {
+                <div class="table-responsive">
+
+                    <table class="table table-hover align-middle">
+
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Check In</th>
+                                <th>Check Out</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var attendance in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @attendance.AttendanceDate.ToString("dd MMM yyyy")
+                                    </td>
+
+                                    <td>
+                                        @if (attendance.Status == "Present")
+                                        {
+                                            <span class="badge bg-success">
+                                                Present
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">
+                                                @attendance.Status
+                                            </span>
+                                        }
+                                    </td>
+
+                                    <td>
+                                        @(attendance.CheckInTime.HasValue
+                                            ? attendance.CheckInTime.Value.ToString("hh:mm tt")
+                                            : "--")
+                                    </td>
+
+                                    <td>
+                                        @(attendance.CheckOutTime.HasValue
+                                            ? attendance.CheckOutTime.Value.ToString("hh:mm tt")
+                                            : "--")
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-4">
+                    <p class="text-muted mb-0">
+                        No attendance records found.
+                    </p>
+                </div>
+            }
+
+            <div class="mt-3">
+
+                <a asp-controller="EmployeeDashboard"
+                   asp-action="Index"
+                   class="btn btn-secondary">
+                    Back to Dashboard
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

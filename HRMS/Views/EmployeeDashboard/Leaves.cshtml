@@ -1,0 +1,110 @@
+﻿@model IEnumerable<HRMS.Models.LeaveRequest>
+
+@{
+    ViewData["Title"] = "My Leaves";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold">My Leaves</h2>
+            <p class="text-muted mb-0">
+                View your leave requests and their status.
+            </p>
+        </div>
+
+        <a asp-controller="EmployeeDashboard"
+           asp-action="ApplyLeave"
+           class="btn btn-primary">
+            Apply for Leave
+        </a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            @if (Model != null && Model.Any())
+            {
+                <div class="table-responsive">
+
+                    <table class="table table-hover align-middle">
+
+                        <thead>
+                            <tr>
+                                <th>Leave Type</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Reason</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var leave in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @leave.LeaveType
+                                    </td>
+
+                                    <td>
+                                        @leave.StartDate.ToString("dd MMM yyyy")
+                                    </td>
+
+                                    <td>
+                                        @leave.EndDate.ToString("dd MMM yyyy")
+                                    </td>
+
+                                    <td>
+                                        @leave.Reason
+                                    </td>
+
+                                    <td>
+                                        @if (leave.Status == "Approved")
+                                        {
+                                            <span class="badge bg-success">
+                                                Approved
+                                            </span>
+                                        }
+                                        else if (leave.Status == "Rejected")
+                                        {
+                                            <span class="badge bg-danger">
+                                                Rejected
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-warning text-dark">
+                                                Pending
+                                            </span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-4">
+                    <p class="text-muted mb-0">
+                        No leave requests found.
+                    </p>
+                </div>
+            }
+
+            <div class="mt-3">
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+                    Back to Dashboard
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</div>
