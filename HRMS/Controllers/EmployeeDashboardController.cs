@@ -7,7 +7,7 @@ using System.Security.Claims;
 
 namespace HRMS.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Employee")]
     public class EmployeeDashboardController : Controller
     {
         private readonly IEmployeeRepository _employeeRepository;
