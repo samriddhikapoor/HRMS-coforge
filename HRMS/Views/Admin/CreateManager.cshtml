@@ -1,0 +1,167 @@
+﻿@model HRMS.ViewModels.Manager.ManagerViewModel
+
+@{
+    ViewData["Title"] = "Create Manager";
+}
+
+<div class="container py-4">
+
+    <div class="mb-4">
+        <h2 class="fw-bold">Create Manager</h2>
+        <p class="text-muted">
+            Create a manager account and assign a department.
+        </p>
+    </div>
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-body p-4">
+
+            <form asp-action="CreateManager" method="post">
+
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3">
+                </div>
+
+                <div class="row">
+
+                    <!-- Manager Name -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="ManagerName"
+                               class="form-label">
+                            Manager Name
+                        </label>
+
+                        <input asp-for="ManagerName"
+                               class="form-control"
+                               placeholder="Enter manager name" />
+
+                        <span asp-validation-for="ManagerName"
+                              class="text-danger">
+                        </span>
+                    </div>
+
+
+                    <!-- Email -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Email"
+                               class="form-label">
+                            Email
+                        </label>
+
+                        <input asp-for="Email"
+                               class="form-control"
+                               placeholder="manager@example.com" />
+
+                        <span asp-validation-for="Email"
+                              class="text-danger">
+                        </span>
+                    </div>
+
+
+                    <!-- Phone -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="PhoneNumber"
+                               class="form-label">
+                            Phone Number
+                        </label>
+
+                        <input asp-for="PhoneNumber"
+                               class="form-control"
+                               placeholder="Enter phone number" />
+
+                        <span asp-validation-for="PhoneNumber"
+                              class="text-danger">
+                        </span>
+                    </div>
+
+
+                    <!-- Password -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            Password
+                        </label>
+
+                        <input name="Password"
+                               type="password"
+                               class="form-control"
+                               placeholder="Create password" />
+
+                        <span asp-validation-for="Password"
+                              class="text-danger">
+                        </span>
+                    </div>
+
+
+                    <!-- Joining Date -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="JoiningDate"
+                               class="form-label">
+                            Joining Date
+                        </label>
+
+                        <input asp-for="JoiningDate"
+                               type="date"
+                               class="form-control" />
+
+                        <span asp-validation-for="JoiningDate"
+                              class="text-danger">
+                        </span>
+                    </div>
+
+
+                    <!-- Department -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="DepartmentId"
+                               class="form-label">
+                            Department
+                        </label>
+
+                        <select asp-for="DepartmentId"
+                                asp-items="ViewBag.Departments"
+                                class="form-select">
+
+                            <option value="">
+                                -- Select Department --
+                            </option>
+
+                        </select>
+
+                        <span asp-validation-for="DepartmentId"
+                              class="text-danger">
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <!-- Buttons -->
+                <div class="mt-3">
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Create Manager
+                    </button>
+
+                    <a asp-action="Dashboard"
+                       class="btn btn-secondary ms-2">
+                        Cancel
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,180 @@
+﻿@model HRMS.Data.ApplicationUser
+
+@{
+    ViewData["Title"] = "Deactivate HR";
+}
+
+<div class="container-fluid py-4">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="fw-bold mb-1">
+                Deactivate HR
+            </h2>
+
+            <p class="text-muted mb-0">
+                Review the HR account before deactivating it.
+            </p>
+        </div>
+
+        <a asp-action="Index"
+           class="btn btn-outline-secondary">
+
+            <i class="bi bi-arrow-left me-1"></i>
+            Back to HR
+
+        </a>
+
+    </div>
+
+
+    <!-- Warning -->
+    <div class="alert alert-warning border-0 shadow-sm">
+
+        <i class="bi bi-exclamation-triangle me-2"></i>
+
+        <strong>Warning:</strong>
+        Deactivating this HR account will prevent the user
+        from logging into the HRMS system.
+        The HR account and its data will not be deleted.
+
+    </div>
+
+
+    <!-- HR Details -->
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-body p-4">
+
+            <div class="d-flex align-items-center mb-4">
+
+                <div class="rounded-circle
+                    bg-info-subtle
+                    text-info
+                    d-flex
+                    align-items-center
+                    justify-content-center"
+                     style="width:65px;height:65px;">
+
+                    <i class="bi bi-person-workspace fs-3"></i>
+
+                </div>
+
+                <div class="ms-3">
+
+                    <h4 class="fw-bold mb-1">
+                        HR Account
+                    </h4>
+
+                    <span class="badge bg-info">
+                        HR
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <hr />
+
+
+            <div class="row g-4 mt-1">
+
+                <!-- Username -->
+                <div class="col-md-6">
+
+                    <div class="text-muted small mb-1">
+                        Username
+                    </div>
+
+                    <div class="fw-semibold">
+                        @Model.UserName
+                    </div>
+
+                </div>
+
+
+                <!-- Email -->
+                <div class="col-md-6">
+
+                    <div class="text-muted small mb-1">
+                        Email
+                    </div>
+
+                    <div class="fw-semibold">
+                        @Model.Email
+                    </div>
+
+                </div>
+
+
+                <!-- Role -->
+                <div class="col-md-6">
+
+                    <div class="text-muted small mb-1">
+                        Role
+                    </div>
+
+                    <span class="badge bg-info">
+                        HR
+                    </span>
+
+                </div>
+
+
+                <!-- Status -->
+                <div class="col-md-6">
+
+                    <div class="text-muted small mb-1">
+                        Current Status
+                    </div>
+
+                    <span class="badge bg-success">
+                        Active
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Deactivate Form -->
+            <div class="mt-5">
+
+                <form asp-action="DeactivateConfirmed"
+                      method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden"
+                           name="id"
+                           value="@Model.Id" />
+
+
+                    <button type="submit"
+                            class="btn btn-warning px-4">
+
+                        <i class="bi bi-person-x me-1"></i>
+                        Yes, Deactivate HR
+
+                    </button>
+
+
+                    <a asp-action="Index"
+                       class="btn btn-outline-secondary ms-2">
+
+                        Cancel
+
+                    </a>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

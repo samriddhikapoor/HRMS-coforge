@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HRMS.Controllers
 {
-    [Authorize(Roles = "HR")]
+    [Authorize(Roles = "HR,Admin,Manager")]
     public class LeaveRequestController : Controller
     {
         private readonly ILeaveRequestRepository _leaveRequestRepository;

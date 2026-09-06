@@ -18,5 +18,7 @@ namespace HRMS.Data
         public DbSet<Payroll> Payrolls { get; set; }
 
         public DbSet<PerformanceReview> PerformanceReviews { get; set; }
+
+        public DbSet<Manager> Managers { get; set; }
     }
 }

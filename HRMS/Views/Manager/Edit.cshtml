@@ -1,0 +1,219 @@
+﻿@model HRMS.ViewModels.Manager.ManagerViewModel
+
+@{
+    ViewData["Title"] = "Edit Manager";
+}
+
+<div class="container-fluid py-4">
+
+    ```
+    <!-- Header -->
+    <div class="mb-4">
+        <h2 class="fw-bold mb-1">Edit Manager</h2>
+
+        <p class="text-muted mb-0">
+            Update manager information and department assignment.
+        </p>
+    </div>
+
+
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-body p-4">
+
+            <form asp-action="Edit"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden"
+                       asp-for="ManagerId" />
+
+                <input type="hidden"
+                       asp-for="UserId" />
+
+
+                <!-- Validation -->
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3">
+                </div>
+
+
+                <div class="row">
+
+                    <!-- Manager Name -->
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="ManagerName"
+                               class="form-label fw-semibold">
+                            Manager Name
+                        </label>
+
+                        <input asp-for="ManagerName"
+                               class="form-control"
+                               placeholder="Enter manager name" />
+
+                        <span asp-validation-for="ManagerName"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Email -->
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="Email"
+                               class="form-label fw-semibold">
+                            Email
+                        </label>
+
+                        <input asp-for="Email"
+                               type="email"
+                               class="form-control"
+                               placeholder="manager@example.com" />
+
+                        <span asp-validation-for="Email"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Phone -->
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="PhoneNumber"
+                               class="form-label fw-semibold">
+                            Phone Number
+                        </label>
+
+                        <input asp-for="PhoneNumber"
+                               class="form-control"
+                               placeholder="Enter phone number" />
+
+                        <span asp-validation-for="PhoneNumber"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Joining Date -->
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="JoiningDate"
+                               class="form-label fw-semibold">
+                            Joining Date
+                        </label>
+
+                        <input asp-for="JoiningDate"
+                               type="date"
+                               class="form-control" />
+
+                        <span asp-validation-for="JoiningDate"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Designation -->
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="Designation"
+                               class="form-label fw-semibold">
+                            Designation
+                        </label>
+
+                        <input asp-for="Designation"
+                               class="form-control"
+                               value="Manager"
+                               readonly />
+
+                        <span asp-validation-for="Designation"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Department -->
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="DepartmentId"
+                               class="form-label fw-semibold">
+                            Department
+                        </label>
+
+                        <select asp-for="DepartmentId"
+                                asp-items="ViewBag.Departments"
+                                class="form-select">
+
+                            <option value="">
+                                -- Select Department --
+                            </option>
+
+                        </select>
+
+                        <span asp-validation-for="DepartmentId"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Note -->
+                <div class="alert alert-info mt-2">
+
+                    <i class="bi bi-info-circle me-2"></i>
+
+                    Changing the department will change the department
+                    assigned to this manager.
+
+                </div>
+
+
+                <!-- Buttons -->
+                <div class="mt-4">
+
+                    <button type="submit"
+                            class="btn btn-primary px-4">
+
+                        <i class="bi bi-save me-1"></i>
+                        Save Changes
+
+                    </button>
+
+
+                    <a asp-action="Details"
+                       asp-route-id="@Model.ManagerId"
+                       class="btn btn-outline-secondary ms-2">
+
+                        Cancel
+
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+    ```
+
+</div>
+
+@section Scripts {
+
+    ```
+    @{
+        await Html.RenderPartialAsync(
+            "_ValidationScriptsPartial");
+    }
+    ```
+
+}

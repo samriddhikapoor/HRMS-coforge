@@ -1,112 +1,226 @@
-﻿@model HRMS.Models.Employee
+﻿@model IEnumerable<HRMS.Models.Employee>
 
 @{
     ViewData["Title"] = "Manager Dashboard";
 }
 
-<div class="container mt-4">
+<div class="container-fluid py-4">
 
+    <!-- Header -->
     <div class="mb-4">
-        <h2 class="fw-bold">
-            Welcome, @Model.EmployeeName
+
+        <h2 class="fw-bold mb-1">
+            Welcome, @ViewBag.ManagerName
         </h2>
 
-        <p class="text-muted">
-            Manager Dashboard
+        <p class="text-muted mb-0">
+            Department: @ViewBag.DepartmentName
         </p>
+
     </div>
 
-    <div class="row">
 
-        <!-- My Profile -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm h-100">
-                <div class="card-body">
-                    <h5 class="fw-bold">My profile</h5>
+    <!-- Statistics -->
 
-                    <p class="text-muted">
-                        View your profile details.
-                    </p>
+    <div class="row g-4 mb-4">
 
-                    <a asp-controller="EmployeeDashboard"
-                       asp-action="Profile"
-                       class="btn btn-primary">
-                        View Profile
-                    </a>
+        <div class="col-md-4">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body p-4">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+                            <p class="text-muted mb-1">
+                                Total Employees
+                            </p>
+
+                            <h2 class="fw-bold mb-0">
+                                @ViewBag.TotalEmployees
+                            </h2>
+                        </div>
+
+                        <div class="fs-2 text-primary">
+                            <i class="bi bi-people"></i>
+                        </div>
+
+                    </div>
+
                 </div>
+
             </div>
+
         </div>
 
-        <!-- Employees -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm h-100">
-                <div class="card-body">
-                    <h5 class="fw-bold">My Team</h5>
 
-                    <p class="text-muted">
-                        View employees in your team.
-                    </p>
+        <div class="col-md-4">
 
-                    <a asp-action="Employees"
-                       class="btn btn-primary">
-                        View Team
-                    </a>
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body p-4">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+                            <p class="text-muted mb-1">
+                                Department
+                            </p>
+
+                            <h4 class="fw-bold mb-0">
+                                @ViewBag.DepartmentName
+                            </h4>
+                        </div>
+
+                        <div class="fs-2 text-info">
+                            <i class="bi bi-building"></i>
+                        </div>
+
+                    </div>
+
                 </div>
+
             </div>
+
         </div>
 
-        <!-- Attendance -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm h-100">
-                <div class="card-body">
-                    <h5 class="fw-bold">Attendance</h5>
 
-                    <p class="text-muted">
-                        View team attendance.
-                    </p>
+        <div class="col-md-4">
 
-                    <a asp-action="Attendance"
-                       class="btn btn-primary">
-                        View Attendance
-                    </a>
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body p-4">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+                            <p class="text-muted mb-1">
+                                Team Overview
+                            </p>
+
+                            <h5 class="fw-bold mb-0">
+                                My Team
+                            </h5>
+                        </div>
+
+                        <div class="fs-2 text-success">
+                            <i class="bi bi-person-check"></i>
+                        </div>
+
+                    </div>
+
                 </div>
+
             </div>
+
         </div>
 
-        <!-- Leave Requests -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm h-100">
-                <div class="card-body">
-                    <h5 class="fw-bold">Leave Requests</h5>
+    </div>
 
-                    <p class="text-muted">
-                        Approve or reject employee leave requests.
+
+    <!-- Employees -->
+
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-body p-4">
+
+            <div class="mb-3">
+
+                <h5 class="fw-bold mb-1">
+                    My Team
+                </h5>
+
+                <p class="text-muted mb-0">
+                    Employees working in your department.
+                </p>
+
+            </div>
+
+
+            @if (Model.Any())
+            {
+                <div class="table-responsive">
+
+                    <table class="table table-hover align-middle">
+
+                        <thead class="table-light">
+
+                            <tr>
+                                <th>Employee</th>
+                                <th>Designation</th>
+                                <th>Email</th>
+                                <th>Joining Date</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var employee in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        <div class="fw-semibold">
+                                            @employee.EmployeeName
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        @employee.Designation
+                                    </td>
+
+                                    <td>
+                                        @employee.Email
+                                    </td>
+
+                                    <td>
+                                        @employee.JoiningDate.ToString("dd MMM yyyy")
+                                    </td>
+
+                                    <td>
+
+                                        <a asp-controller="Employee"
+                                           asp-action="Details"
+                                           asp-route-id="@employee.EmployeeId"
+                                           class="btn btn-sm btn-outline-primary">
+
+                                            <i class="bi bi-eye me-1"></i>
+                                            View
+
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-5">
+
+                    <i class="bi bi-people fs-1 text-muted"></i>
+
+                    <h5 class="mt-3">
+                        No Employees Found
+                    </h5>
+
+                    <p class="text-muted mb-0">
+                        There are currently no employees
+                        in your department.
                     </p>
 
-                    <a asp-action="Leaves"
-                       class="btn btn-primary">
-                        Manage Leaves
-                    </a>
                 </div>
-            </div>
-        </div>
+            }
 
-        <!-- Performance -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm h-100">
-                <div class="card-body">
-                    <h5 class="fw-bold">Performance</h5>
-
-                    <p class="text-muted">
-                        Manage employee performance reviews.
-                    </p>
-
-                    <a asp-action="Performance"
-                       class="btn btn-primary">
-                        Manage Performance
-                    </a>
-                </div>
-            </div>
         </div>
 
     </div>

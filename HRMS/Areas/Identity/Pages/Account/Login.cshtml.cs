@@ -125,7 +125,7 @@ public class LoginModel : PageModel
                 "Admin"))
             {
                 return RedirectToAction(
-                    "Index",
+                    "Dashboard",
                     "Admin");
             }
 

@@ -1,41 +1,55 @@
-﻿using HRMS.Repositories.Interfaces;
+﻿using HRMS.Data;
+using HRMS.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace HRMS.Controllers
 {
     [Authorize(Roles = "Manager")]
     public class ManagerDashboardController : Controller
     {
-        private readonly IEmployeeRepository _employeeRepository;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly HRMSContext _context;
 
         public ManagerDashboardController(
-            IEmployeeRepository employeeRepository)
+            UserManager<ApplicationUser> userManager,
+            HRMSContext context)
         {
-            _employeeRepository = employeeRepository;
+            _userManager = userManager;
+            _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-            var userId =
-                User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var currentUser =
+                await _userManager.GetUserAsync(User);
 
-            if (userId == null)
+            if (currentUser == null)
             {
-                return Unauthorized();
+                return RedirectToAction("Login", "Account");
             }
 
-            var employee =
-                await _employeeRepository
-                    .GetEmployeeByUserIdAsync(userId);
+            var manager = await _context.Managers
+                .Include(m => m.Department)
+                .FirstOrDefaultAsync(m => m.UserId == currentUser.Id);
 
-            if (employee == null)
+            if (manager == null)
             {
-                return NotFound("Manager employee record not found.");
+                return NotFound("Manager profile not found.");
             }
 
-            return View(employee);
+            var employees = await _context.Employees
+                .Include(e => e.Department)
+                .Where(e => e.DepartmentId == manager.DepartmentId)
+                .ToListAsync();
+
+            ViewBag.ManagerName = currentUser.UserName;
+            ViewBag.DepartmentName = manager.Department?.DepartmentName;
+            ViewBag.TotalEmployees = employees.Count;
+
+            return View(employees);
         }
     }
 }

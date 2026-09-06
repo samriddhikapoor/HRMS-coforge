@@ -1,0 +1,292 @@
+﻿@model IEnumerable<HRMS.Data.ApplicationUser>
+
+@{
+    ViewData["Title"] = "HR Management";
+}
+
+<div class="container-fluid py-4">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="fw-bold mb-1">
+                HR Management
+            </h2>
+
+            <p class="text-muted mb-0">
+                View and manage HR accounts in the system.
+            </p>
+        </div>
+
+        <div>
+            <a asp-controller="Admin"
+               asp-action="Dashboard"
+               class="btn btn-outline-secondary">
+
+                <i class="bi bi-arrow-left me-1"></i>
+                Dashboard
+
+            </a>
+        </div>
+
+    </div>
+
+
+    <!-- HR Count -->
+    <div class="row mb-4">
+
+        <div class="col-md-4">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div>
+
+                            <p class="text-muted mb-1">
+                                Total HR
+                            </p>
+
+                            <h3 class="fw-bold mb-0">
+                                @Model.Count()
+                            </h3>
+
+                        </div>
+
+                        <div class="fs-2 text-info">
+
+                            <i class="bi bi-person-workspace"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- HR Table -->
+
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-body p-4">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                <div>
+
+                    <h5 class="fw-bold mb-1">
+                        HR Accounts
+                    </h5>
+
+                    <p class="text-muted mb-0">
+                        Manage existing HR users.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            @if (Model.Any())
+            {
+                <div class="table-responsive">
+
+                    <table class="table table-hover align-middle">
+
+                        <thead class="table-light">
+
+                            <tr>
+
+                                <th>
+                                    Email
+                                </th>
+
+                                <th>
+                                    User Name
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th class="text-end">
+                                    Actions
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            @foreach (var hr in Model)
+                            {
+                                var isActive =
+                                    !hr.LockoutEnd.HasValue ||
+                                    hr.LockoutEnd <= DateTimeOffset.UtcNow;
+
+                                <tr>
+
+                                    <!-- Email -->
+
+                                    <td>
+
+                                        <div class="d-flex align-items-center">
+
+                                            <div class="rounded-circle
+                                                bg-info-subtle
+                                                text-info
+                                                d-flex
+                                                align-items-center
+                                                justify-content-center"
+                                                 style="width:40px;height:40px;">
+
+                                                <i class="bi bi-person-workspace"></i>
+
+                                            </div>
+
+                                            <div class="ms-3">
+
+                                                <div class="fw-semibold">
+                                                    @hr.Email
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </td>
+
+
+                                    <!-- Username -->
+
+                                    <td>
+                                        @hr.UserName
+                                    </td>
+
+
+                                    <!-- Status -->
+
+                                    <td>
+
+                                        @if (isActive)
+                                        {
+                                            <span class="badge bg-success">
+                                                Active
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">
+                                                Inactive
+                                            </span>
+                                        }
+
+                                    </td>
+
+
+                                    <!-- Actions -->
+
+                                    <td class="text-end">
+
+                                        <!-- Details -->
+
+                                        <a asp-action="Details"
+                                           asp-route-id="@hr.Id"
+                                           class="btn btn-sm btn-outline-info me-1">
+
+                                            <i class="bi bi-eye"></i>
+                                            Details
+
+                                        </a>
+
+
+                                        <!-- Edit -->
+
+                                        <a asp-action="Edit"
+                                           asp-route-id="@hr.Id"
+                                           class="btn btn-sm btn-outline-primary me-1">
+
+                                            <i class="bi bi-pencil"></i>
+                                            Edit
+
+                                        </a>
+
+
+                                        <!-- Activate / Deactivate -->
+                                        @if (isActive)
+                                        {
+                                            <a asp-action="Deactivate"
+                                               asp-route-id="@hr.Id"
+                                               class="btn btn-sm btn-outline-warning">
+
+                                                <i class="bi bi-person-x"></i>
+                                                Deactivate
+
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <form asp-action="Activate"
+                                                  asp-route-id="@hr.Id"
+                                                  method="post"
+                                                  class="d-inline">
+
+                                                @Html.AntiForgeryToken()
+
+                                                <button type="submit"
+                                                        class="btn btn-sm btn-outline-success">
+
+                                                    <i class="bi bi-person-check"></i>
+                                                    Activate
+
+                                                </button>
+
+                                            </form>
+                                        }
+
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-5">
+
+                    <i class="bi bi-person-workspace
+                        fs-1 text-muted">
+                    </i>
+
+                    <h5 class="mt-3">
+                        No HR accounts found
+                    </h5>
+
+                    <p class="text-muted mb-0">
+                        There are currently no HR accounts in the system.
+                    </p>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</div>

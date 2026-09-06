@@ -2,460 +2,639 @@
 @model RegisterModel
 
 @{
-    Layout = null;
     ViewData["Title"] = "Register";
 }
 
-<!DOCTYPE html>
+<style>
+    body {
+        background: #fff8fa !important;
+    }
 
-<html lang="en">
+    .register-page {
+        min-height: 100vh;
+        padding: 30px 20px;
 
-<head>
+        background:
+            radial-gradient(circle at 8% 10%, #f8dce5 0, transparent 27%),
+            radial-gradient(circle at 92% 90%, #f5d8e1 0, transparent 30%),
+            linear-gradient(135deg, #fffaf9, #fff);
+    }
 
-    <meta charset="utf-8" />
+    .register-container {
+        width: min(1180px, 100%);
+        margin: auto;
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1" />
+        display: grid;
+        grid-template-columns: 36% 64%;
 
-    <title>HRMS Register</title>
+        min-height: 700px;
 
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-          rel="stylesheet" />
+        overflow: hidden;
+        border-radius: 28px;
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-          rel="stylesheet" />
+        background: white;
 
-    <style>
+        border: 1px solid #efdee4;
 
-            * {
-                font-family: 'Segoe UI';
-            }
+        box-shadow:
+            0 25px 70px rgba(104,55,72,.13);
+    }
 
-            body {
-                margin: 0;
-                background: #F2F3F4;
-            }
+    /* LEFT */
 
-            .register-container {
-                min-height: 100vh;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 30px;
-            }
+    .register-left {
+        position: relative;
+        overflow: hidden;
 
-            .register-card {
-                width: 1150px;
-                min-height: 700px;
-                border-radius: 25px;
-                overflow: hidden;
-                background: white;
-                box-shadow: 0 20px 60px rgba(0,0,0,.15);
-                display: flex;
-            }
+        padding: 50px 45px;
 
-            .left-panel {
-                width: 43%;
-                background: linear-gradient(135deg,#363955,#54668E,#879EC6);
-                color: white;
-                position: relative;
-                overflow: hidden;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                clip-path: polygon(0 0,100% 0,88% 100%,0 100%);
-            }
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
 
-                .left-panel::before {
-                    content: "";
-                    position: absolute;
-                    width: 650px;
-                    height: 650px;
-                    background: rgba(255,255,255,.08);
-                    border-radius: 50%;
-                    left: -200px;
-                    top: -100px;
-                }
+        color: white;
 
-                .left-panel::after {
-                    content: "";
-                    position: absolute;
-                    width: 450px;
-                    height: 450px;
-                    border-radius: 50%;
-                    background: rgba(255,255,255,.05);
-                    right: -180px;
-                    bottom: -170px;
-                }
+        background:
+            radial-gradient(circle at 85% 20%, rgba(255,255,255,.15), transparent 28%),
+            radial-gradient(circle at 10% 85%, rgba(255,255,255,.12), transparent 35%),
+            linear-gradient(145deg, #c15b80, #994563);
+    }
 
-            .brand {
-                position: relative;
-                z-index: 5;
-                width: 75%;
-            }
+    .register-left::before {
+        content: "";
+        position: absolute;
 
-                .brand h1 {
-                    font-size: 58px;
-                    font-weight: 700;
-                    margin-bottom: 25px;
-                }
+        width: 430px;
+        height: 430px;
 
-                .brand h2 {
-                    font-size: 30px;
-                    font-weight: 600;
-                    line-height: 1.4;
-                }
+        border-radius: 50%;
 
-                .brand p {
-                    font-size: 17px;
-                    margin-top: 25px;
-                    opacity: .95;
-                    line-height: 1.7;
-                }
+        background: rgba(255,255,255,.06);
 
-            .right-panel {
-                width: 57%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background: white;
-                padding: 35px 55px;
-            }
+        top: -180px;
+        right: -170px;
+    }
 
-            .register-box {
-                width: 100%;
-                max-width: 570px;
-            }
+    .register-left::after {
+        content: "";
+        position: absolute;
 
-                .register-box h2 {
-                    font-weight: bold;
-                    color: #363955;
-                    margin-bottom: 5px;
-                }
+        width: 300px;
+        height: 300px;
 
-                .register-box > p {
-                    color: gray;
-                    margin-bottom: 25px;
-                }
+        border-radius: 50%;
 
-            .form-label {
-                color: #363955;
-                font-weight: 600;
-                margin-bottom: 7px;
-            }
+        background: rgba(255,255,255,.06);
 
-            .form-control,
-            .form-select {
-                height: 48px;
-                border-radius: 10px;
-                border: 1px solid #ddd;
-            }
+        bottom: -150px;
+        left: -120px;
+    }
 
-                .form-control:focus,
-                .form-select:focus {
-                    border-color: #54668E;
-                    box-shadow: 0 0 8px rgba(84,102,142,.25);
-                }
+    .register-brand {
+        position: relative;
+        z-index: 2;
 
-            .btn-register {
-                background: linear-gradient(90deg,#363955,#54668E);
-                color: white;
-                height: 50px;
-                border-radius: 11px;
-                border: none;
-                font-size: 17px;
-                font-weight: 600;
-            }
+        display: flex;
+        align-items: center;
+        gap: 13px;
+    }
 
-                .btn-register:hover {
-                    background: #59598E;
-                    color: white;
-                }
+    .register-logo {
+        width: 48px;
+        height: 48px;
 
-            .login-link {
-                color: #59598E;
-                text-decoration: none;
-                font-weight: 600;
-            }
+        border-radius: 15px;
 
-                .login-link:hover {
-                    color: #363955;
-                }
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-            .text-danger {
-                font-size: 13px;
-            }
+        font-size: 25px;
 
-            @@media (max-width: 900px) {
+        background: rgba(255,255,255,.17);
+        border: 1px solid rgba(255,255,255,.25);
+    }
 
-                .register-card {
-                    width: 100%;
-                }
+    .register-brand-name {
+        font-family: Georgia, serif;
+        font-size: 25px;
+        font-weight: bold;
+    }
 
-                .left-panel {
-                    display: none;
-                }
+    .register-brand-sub {
+        display: block;
+        font-size: 8px;
+        letter-spacing: 2.5px;
+        opacity: .75;
+    }
 
-                .right-panel {
-                    width: 100%;
-                }
-            }
+    .register-left-content {
+        position: relative;
+        z-index: 2;
+    }
 
-    </style>
+    .register-left-content h1 {
+        font-family: Georgia, serif;
+        font-size: 46px;
+        line-height: 1.1;
+        margin-bottom: 20px;
+    }
 
-</head>
+    .register-left-content h1 span {
+        color: #ffe0e9;
+        font-style: italic;
+    }
 
-<body>
+    .register-left-content p {
+        max-width: 340px;
+        font-size: 15px;
+        line-height: 1.8;
+        color: rgba(255,255,255,.82);
+    }
+
+    .register-note {
+        position: relative;
+        z-index: 2;
+
+        padding: 18px;
+
+        border-radius: 17px;
+
+        background: rgba(255,255,255,.1);
+        border: 1px solid rgba(255,255,255,.15);
+
+        font-size: 12px;
+        line-height: 1.6;
+
+        max-width: 310px;
+    }
+
+    /* RIGHT */
+
+    .register-right {
+        padding: 48px 65px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .register-form {
+        width: 100%;
+        max-width: 650px;
+    }
+
+    .register-heading {
+        margin-bottom: 27px;
+    }
+
+    .register-heading h2 {
+        font-family: Georgia, serif;
+        font-size: 38px;
+        color: #28243a;
+        margin-bottom: 7px;
+    }
+
+    .register-heading p {
+        color: #81767d;
+        font-size: 14px;
+        margin: 0;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 17px 25px;
+    }
+
+    .field {
+        min-width: 0;
+    }
+
+    .field.full {
+        grid-column: 1 / -1;
+    }
+
+    .field label {
+        display: block;
+        color: #393344;
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 7px;
+    }
+
+    .register-input,
+    .register-select {
+        width: 100%;
+        height: 49px;
+
+        padding: 0 14px;
+
+        border: 1px solid #eadde2;
+        border-radius: 11px;
+
+        background: #fffafb;
+
+        outline: none;
+
+        color: #332d3a;
+        font-size: 13px;
+
+        transition: .25s ease;
+    }
+
+    .register-input:focus,
+    .register-select:focus {
+        border-color: #c45d82;
+        background: white;
+
+        box-shadow:
+            0 0 0 4px rgba(196,93,130,.09);
+    }
+
+    .register-input::placeholder {
+        color: #aaa0a5;
+    }
+
+    .validation {
+        font-size: 11px;
+        color: #b33f5f;
+        margin-top: 4px;
+    }
+
+    .create-button {
+        width: 100%;
+        height: 52px;
+
+        border: none;
+        border-radius: 12px;
+
+        margin-top: 24px;
+
+        color: white;
+
+        background:
+            linear-gradient(135deg, #cb6388, #b44d72);
+
+        font-size: 14px;
+        font-weight: 700;
+
+        box-shadow:
+            0 10px 25px rgba(180,77,114,.22);
+
+        cursor: pointer;
+
+        transition: .25s ease;
+    }
+
+    .create-button:hover {
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 14px 28px rgba(180,77,114,.3);
+    }
+
+    .login-link-box {
+        margin-top: 18px;
+
+        text-align: center;
+
+        color: #7c7177;
+        font-size: 13px;
+    }
+
+    .login-link-box a {
+        color: #b64e73;
+        text-decoration: none;
+        font-weight: 700;
+    }
+
+    .login-link-box a:hover {
+        text-decoration: underline;
+    }
+
+    .validation-summary {
+        color: #b33f5f;
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+
+    @@media(max-width: 950px) {
+
+        .register-container {
+            grid-template-columns: 1fr;
+        }
+
+        .register-left {
+            min-height: 330px;
+        }
+
+        .register-right {
+            padding: 45px 35px;
+        }
+    }
+
+    @@media(max-width: 650px) {
+
+        .register-page {
+            padding: 15px;
+        }
+
+        .register-left {
+            padding: 30px;
+        }
+
+        .register-left-content h1 {
+            font-size: 37px;
+        }
+
+        .register-right {
+            padding: 35px 22px;
+        }
+
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .field.full {
+            grid-column: auto;
+        }
+
+        .register-heading h2 {
+            font-size: 32px;
+        }
+    }
+</style>
+
+
+<div class="register-page">
 
     <div class="register-container">
 
-        <div class="register-card">
+        <!-- LEFT PANEL -->
 
-            <!-- ================= LEFT PANEL ================= -->
+        <div class="register-left">
 
-            <div class="left-panel">
+            <div class="register-brand">
 
-                <div class="brand">
+                <div class="register-logo">
+                    ♡
+                </div>
 
-                    <h1>HRMS</h1>
+                <div>
 
-                    <h2>
-                        Human Resource
-                        <br />
-                        Management System
-                    </h2>
+                    <div class="register-brand-name">
+                        HRMS
+                    </div>
 
-                    <p>
-                        Create your employee account and
-                        become a part of the organization.
-                    </p>
+                    <span class="register-brand-sub">
+                        WORKFORCE HUB
+                    </span>
 
                 </div>
 
             </div>
 
 
-            <!-- ================= RIGHT PANEL ================= -->
+            <div class="register-left-content">
 
-            <div class="right-panel">
+                <h1>
+                    Create your<br />
+                    <span>workspace.</span>
+                </h1>
 
-                <div class="register-box">
+                <p>
+                    Join your organization and become part
+                    of a better, simpler and more connected
+                    workplace experience.
+                </p>
 
-                    <h2>Create Account</h2>
+            </div>
+
+
+            <div class="register-note">
+
+                ♡ &nbsp;
+
+                Your information helps us create
+                your personalized employee workspace.
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT PANEL -->
+
+        <div class="register-right">
+
+            <div class="register-form">
+
+                <div class="register-heading">
+
+                    <h2>
+                        Create Account
+                    </h2>
 
                     <p>
-                        Enter your details to register.
+                        Enter your details to register as an employee.
                     </p>
 
-
-                    <form method="post">
-
-                        <div asp-validation-summary="ModelOnly"
-                             class="text-danger mb-3">
-                        </div>
+                </div>
 
 
-                        <!-- ROW 1 -->
+                <form method="post">
 
-                        <div class="row">
-
-                            <div class="col-md-6 mb-3">
-
-                                <label asp-for="Input.EmployeeName"
-                                       class="form-label">
-                                </label>
-
-                                <input asp-for="Input.EmployeeName"
-                                       class="form-control"
-                                       placeholder="Enter employee name" />
-
-                                <span asp-validation-for="Input.EmployeeName"
-                                      class="text-danger">
-                                </span>
-
-                            </div>
+                    <div asp-validation-summary="ModelOnly"
+                         class="validation-summary">
+                    </div>
 
 
-                            <div class="col-md-6 mb-3">
+                    <div class="form-grid">
 
-                                <label asp-for="Input.Email"
-                                       class="form-label">
-                                </label>
+                        <!-- EMPLOYEE NAME -->
 
-                                <input asp-for="Input.Email"
-                                       class="form-control"
-                                       placeholder="Enter email" />
+                        <div class="field">
 
-                                <span asp-validation-for="Input.Email"
-                                      class="text-danger">
-                                </span>
+                            <label asp-for="Input.EmployeeName">
+                                Employee Name
+                            </label>
 
-                            </div>
+                            <input asp-for="Input.EmployeeName"
+                                   class="register-input"
+                                   placeholder="Enter employee name" />
+
+                            <span asp-validation-for="Input.EmployeeName"
+                                  class="validation">
+                            </span>
 
                         </div>
 
 
-                        <!-- ROW 2 -->
+                        <!-- EMAIL -->
 
-                        <div class="row">
+                        <div class="field">
 
-                            <div class="col-md-6 mb-3">
+                            <label asp-for="Input.Email">
+                                Email
+                            </label>
 
-                                <label asp-for="Input.PhoneNumber"
-                                       class="form-label">
-                                </label>
+                            <input asp-for="Input.Email"
+                                   class="register-input"
+                                   placeholder="Enter email address"
+                                   autocomplete="username" />
 
-                                <input asp-for="Input.PhoneNumber"
-                                       class="form-control"
-                                       placeholder="Enter phone number" />
-
-                                <span asp-validation-for="Input.PhoneNumber"
-                                      class="text-danger">
-                                </span>
-
-                            </div>
-
-
-                            <div class="col-md-6 mb-3">
-
-                                <label asp-for="Input.Designation"
-                                       class="form-label">
-                                </label>
-
-                                <input asp-for="Input.Designation"
-                                       class="form-control"
-                                       placeholder="e.g. Software Developer" />
-
-                                <span asp-validation-for="Input.Designation"
-                                      class="text-danger">
-                                </span>
-
-                            </div>
+                            <span asp-validation-for="Input.Email"
+                                  class="validation">
+                            </span>
 
                         </div>
 
 
-                        <!-- ROW 3 -->
+                        <!-- PHONE -->
 
-                        <div class="row">
+                        <div class="field">
 
-                            <div class="col-md-6 mb-3">
+                            <label asp-for="Input.PhoneNumber">
+                                Phone Number
+                            </label>
 
-                                <label asp-for="Input.JoiningDate"
-                                       class="form-label">
-                                </label>
+                            <input asp-for="Input.PhoneNumber"
+                                   class="register-input"
+                                   placeholder="Enter phone number" />
 
-                                <input asp-for="Input.JoiningDate"
-                                       type="date"
-                                       class="form-control" />
-
-                                <span asp-validation-for="Input.JoiningDate"
-                                      class="text-danger">
-                                </span>
-
-                            </div>
-
-
-                            <div class="col-md-6 mb-3">
-
-                                <label asp-for="Input.DepartmentId"
-                                       class="form-label">
-                                    Department
-                                </label>
-
-                                <select asp-for="Input.DepartmentId"
-                                        class="form-select">
-
-                                    <option value="">
-                                        -- Select Department --
-                                    </option>
-
-                                    @foreach (var department in Model.Departments)
-                                    {
-                                        <option value="@department.DepartmentId">
-                                            @department.DepartmentName
-                                        </option>
-                                    }
-
-                                </select>
-
-                                <span asp-validation-for="Input.DepartmentId"
-                                      class="text-danger">
-                                </span>
-
-                            </div>
+                            <span asp-validation-for="Input.PhoneNumber"
+                                  class="validation">
+                            </span>
 
                         </div>
 
 
-                        <!-- ROW 4 -->
+                        <!-- DESIGNATION -->
 
-                        <div class="row">
+                        <div class="field">
 
-                            <div class="col-md-6 mb-3">
+                            <label asp-for="Input.Designation">
+                                Designation
+                            </label>
 
-                                <label asp-for="Input.Password"
-                                       class="form-label">
-                                </label>
+                            <input asp-for="Input.Designation"
+                                   class="register-input"
+                                   placeholder="e.g. Software Developer" />
 
-                                <input asp-for="Input.Password"
-                                       class="form-control"
-                                       placeholder="Enter password" />
-
-                                <span asp-validation-for="Input.Password"
-                                      class="text-danger">
-                                </span>
-
-                            </div>
-
-
-                            <div class="col-md-6 mb-3">
-
-                                <label asp-for="Input.ConfirmPassword"
-                                       class="form-label">
-                                </label>
-
-                                <input asp-for="Input.ConfirmPassword"
-                                       class="form-control"
-                                       placeholder="Confirm password" />
-
-                                <span asp-validation-for="Input.ConfirmPassword"
-                                      class="text-danger">
-                                </span>
-
-                            </div>
+                            <span asp-validation-for="Input.Designation"
+                                  class="validation">
+                            </span>
 
                         </div>
 
 
-                        <!-- REGISTER BUTTON -->
+                        <!-- JOINING DATE -->
 
-                        <button type="submit"
-                                class="btn btn-register w-100 mt-2">
+                        <div class="field">
 
-                            Create Account
+                            <label asp-for="Input.JoiningDate">
+                                Joining Date
+                            </label>
 
-                        </button>
+                            <input asp-for="Input.JoiningDate"
+                                   type="date"
+                                   class="register-input" />
 
-                    </form>
+                            <span asp-validation-for="Input.JoiningDate"
+                                  class="validation">
+                            </span>
+
+                        </div>
 
 
-                    <!-- LOGIN LINK -->
+                        <!-- DEPARTMENT -->
 
-                    <div class="text-center mt-4">
+                        <div class="field">
+
+                            <label asp-for="Input.DepartmentId">
+                                Department
+                            </label>
+
+                            <!-- KEEP YOUR EXISTING asp-items HERE -->
+
+                            <select asp-for="Input.DepartmentId"
+                                    asp-items="ViewBag.Departments"
+                                    class="register-select">
+
+                                <option value="">
+                                    -- Select Department --
+                                </option>
+
+                            </select>
+
+                            <span asp-validation-for="Input.DepartmentId"
+                                  class="validation">
+                            </span>
+
+                        </div>
+
+
+                        <!-- PASSWORD -->
+
+                        <div class="field">
+
+                            <label asp-for="Input.Password">
+                                Password
+                            </label>
+
+                            <input asp-for="Input.Password"
+                                   class="register-input"
+                                   placeholder="Create password"
+                                   autocomplete="new-password" />
+
+                            <span asp-validation-for="Input.Password"
+                                  class="validation">
+                            </span>
+
+                        </div>
+
+
+                        <!-- CONFIRM PASSWORD -->
+
+                        <div class="field">
+
+                            <label asp-for="Input.ConfirmPassword">
+                                Confirm Password
+                            </label>
+
+                            <input asp-for="Input.ConfirmPassword"
+                                   class="register-input"
+                                   placeholder="Confirm password"
+                                   autocomplete="new-password" />
+
+                            <span asp-validation-for="Input.ConfirmPassword"
+                                  class="validation">
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <button type="submit"
+                            class="create-button">
+
+                        Create Account
+
+                    </button>
+
+
+                    <div class="login-link-box">
 
                         Already have an account?
 
-                        <a asp-page="./Login"
-                           class="login-link">
-
+                        <a asp-page="./Login">
                             Login
-
                         </a>
 
                     </div>
 
-                </div>
+                </form>
 
             </div>
 
@@ -463,13 +642,9 @@
 
     </div>
 
+</div>
 
-    @section Scripts {
 
-        <partial name="_ValidationScriptsPartial" />
-
-    }
-
-</body>
-
-</html>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

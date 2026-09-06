@@ -1,0 +1,138 @@
+﻿@model HRMS.Data.ApplicationUser
+
+@{
+    ViewData["Title"] = "Edit HR";
+}
+
+<div class="container-fluid py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="fw-bold mb-1">Edit HR</h2>
+
+            <p class="text-muted mb-0">
+                Update the HR account information.
+            </p>
+        </div>
+
+        <a asp-action="Index"
+           class="btn btn-outline-secondary">
+
+            <i class="bi bi-arrow-left me-1"></i>
+            Back to HR
+
+        </a>
+
+    </div>
+
+
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-body p-4">
+
+            <form asp-action="Edit"
+                  asp-route-id="@Model.Id"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3">
+                </div>
+
+
+                <!-- Username -->
+
+                <div class="mb-4">
+
+                    <label asp-for="UserName"
+                           class="form-label fw-semibold">
+                        Username
+                    </label>
+
+                    <input asp-for="UserName"
+                           class="form-control"
+                           placeholder="Enter username" />
+
+                    <span asp-validation-for="UserName"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div class="mb-4">
+
+                    <label asp-for="Email"
+                           class="form-label fw-semibold">
+                        Email
+                    </label>
+
+                    <input asp-for="Email"
+                           class="form-control"
+                           type="email"
+                           placeholder="Enter HR email" />
+
+                    <span asp-validation-for="Email"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+
+                <!-- Role -->
+
+                <div class="mb-4">
+
+                    <label class="form-label fw-semibold">
+                        Role
+                    </label>
+
+                    <input type="text"
+                           class="form-control"
+                           value="HR"
+                           readonly />
+
+                </div>
+
+
+                <div class="mt-4">
+
+                    <button type="submit"
+                            class="btn btn-primary px-4">
+
+                        <i class="bi bi-save me-1"></i>
+                        Save Changes
+
+                    </button>
+
+                    <a asp-action="Details"
+                       asp-route-id="@Model.Id"
+                       class="btn btn-outline-secondary ms-2">
+
+                        Cancel
+
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync(
+            "_ValidationScriptsPartial");
+    }
+
+}

@@ -1,0 +1,175 @@
+﻿@model HRMS.Models.Manager
+
+@{
+    ViewData["Title"] = "Delete Manager";
+}
+
+<div class="container-fluid py-4">
+
+    ```
+    <!-- Header -->
+    <div class="mb-4">
+
+        <h2 class="fw-bold mb-1">
+            Delete Manager
+        </h2>
+
+        <p class="text-muted mb-0">
+            Review the manager information before deleting the account.
+        </p>
+
+    </div>
+
+
+    <!-- Warning -->
+    <div class="alert alert-warning border-0 shadow-sm">
+
+        <i class="bi bi-exclamation-triangle me-2"></i>
+
+        <strong>Are you sure?</strong>
+
+        Deleting this manager will also remove the associated
+        login account.
+
+    </div>
+
+
+    <!-- Manager Details Card -->
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-body p-4">
+
+            <div class="row g-4">
+
+                <!-- Manager -->
+                <div class="col-md-6">
+
+                    <div class="text-muted small mb-1">
+                        Manager Name
+                    </div>
+
+                    <div class="fw-semibold fs-5">
+                        @Model.ManagerName
+                    </div>
+
+                </div>
+
+
+                <!-- Email -->
+                <div class="col-md-6">
+
+                    <div class="text-muted small mb-1">
+                        Email
+                    </div>
+
+                    <div class="fw-semibold">
+                        @Model.Email
+                    </div>
+
+                </div>
+
+
+                <!-- Phone -->
+                <div class="col-md-6">
+
+                    <div class="text-muted small mb-1">
+                        Phone Number
+                    </div>
+
+                    <div class="fw-semibold">
+                        @Model.PhoneNumber
+                    </div>
+
+                </div>
+
+
+                <!-- Designation -->
+                <div class="col-md-6">
+
+                    <div class="text-muted small mb-1">
+                        Designation
+                    </div>
+
+                    <span class="badge bg-primary">
+                        @Model.Designation
+                    </span>
+
+                </div>
+
+
+                <!-- Department -->
+                <div class="col-md-6">
+
+                    <div class="text-muted small mb-1">
+                        Department
+                    </div>
+
+                    @if (Model.Department != null)
+                    {
+                        <div class="fw-semibold">
+                            @Model.Department.DepartmentName
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-muted">
+                            Not Assigned
+                        </div>
+                    }
+
+                </div>
+
+
+                <!-- Joining Date -->
+                <div class="col-md-6">
+
+                    <div class="text-muted small mb-1">
+                        Joining Date
+                    </div>
+
+                    <div class="fw-semibold">
+                        @Model.JoiningDate.ToString("dd MMMM yyyy")
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <hr class="my-4" />
+
+
+            <!-- Delete Form -->
+            <form asp-action="Delete"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden"
+                       asp-for="ManagerId" />
+
+
+                <button type="submit"
+                        class="btn btn-danger px-4">
+
+                    <i class="bi bi-trash me-1"></i>
+                    Yes, Delete Manager
+
+                </button>
+
+
+                <a asp-action="Index"
+                   class="btn btn-outline-secondary ms-2">
+
+                    Cancel
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+    ```
+
+</div>

@@ -28,7 +28,11 @@ namespace HRMS.Controllers
             _userManager = userManager;
         }
 
-     
+
+        // =========================================================
+        // EMPLOYEE INDEX
+        // =========================================================
+
         public async Task<IActionResult> Index()
         {
             var employees =
@@ -40,7 +44,11 @@ namespace HRMS.Controllers
             return View(employeeViewModels);
         }
 
-       
+
+        // =========================================================
+        // EMPLOYEE DETAILS
+        // =========================================================
+
         public async Task<IActionResult> Details(int id)
         {
             var employee =
@@ -57,6 +65,11 @@ namespace HRMS.Controllers
             return View(employeeViewModel);
         }
 
+
+        // =========================================================
+        // CREATE EMPLOYEE - GET
+        // =========================================================
+
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -65,7 +78,11 @@ namespace HRMS.Controllers
             return View();
         }
 
-        // POST: Employee/Create
+
+        // =========================================================
+        // CREATE EMPLOYEE - POST
+        // =========================================================
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
@@ -73,10 +90,16 @@ namespace HRMS.Controllers
         {
             if (!ModelState.IsValid)
             {
-                await LoadDepartmentsAsync(employeeViewModel.DepartmentId);
+                await LoadDepartmentsAsync(
+                    employeeViewModel.DepartmentId);
 
                 return View(employeeViewModel);
             }
+
+
+            // =====================================================
+            // CREATE IDENTITY USER
+            // =====================================================
 
             var user = new ApplicationUser
             {
@@ -85,9 +108,12 @@ namespace HRMS.Controllers
                 EmailConfirmed = true
             };
 
-            var userResult = await _userManager.CreateAsync(
-                user,
-                employeeViewModel.Password);
+
+            var userResult =
+                await _userManager.CreateAsync(
+                    user,
+                    employeeViewModel.Password);
+
 
             if (!userResult.Succeeded)
             {
@@ -98,26 +124,78 @@ namespace HRMS.Controllers
                         error.Description);
                 }
 
-                await LoadDepartmentsAsync(employeeViewModel.DepartmentId);
+                await LoadDepartmentsAsync(
+                    employeeViewModel.DepartmentId);
 
                 return View(employeeViewModel);
             }
 
-            var employee =
-                _mapper.Map<Employee>(employeeViewModel);
 
+            // =====================================================
+            // ASSIGN EMPLOYEE ROLE
+            // =====================================================
+
+            var roleResult =
+                await _userManager.AddToRoleAsync(
+                    user,
+                    "Employee");
+
+
+            if (!roleResult.Succeeded)
+            {
+                // If role assignment fails,
+                // delete the Identity user that was just created.
+
+                await _userManager.DeleteAsync(user);
+
+                foreach (var error in roleResult.Errors)
+                {
+                    ModelState.AddModelError(
+                        string.Empty,
+                        error.Description);
+                }
+
+                await LoadDepartmentsAsync(
+                    employeeViewModel.DepartmentId);
+
+                return View(employeeViewModel);
+            }
+
+
+            // =====================================================
+            // CREATE EMPLOYEE PROFILE
+            // =====================================================
+
+            var employee =
+                _mapper.Map<Employee>(
+                    employeeViewModel);
+
+
+            // Link Employee profile with Identity account
             employee.UserId = user.Id;
 
-            await _employeeRepository.AddEmployeeAsync(employee);
+
+            await _employeeRepository
+                .AddEmployeeAsync(employee);
+
+
+            // =====================================================
+            // REDIRECT
+            // =====================================================
 
             return RedirectToAction("Index");
         }
 
-        // GET: Employee/Edit/5
+
+        // =========================================================
+        // EDIT EMPLOYEE - GET
+        // =========================================================
+
         public async Task<IActionResult> Edit(int id)
         {
             var employee =
-                await _employeeRepository.GetEmployeeByIdAsync(id);
+                await _employeeRepository
+                    .GetEmployeeByIdAsync(id);
 
             if (employee == null)
             {
@@ -125,14 +203,20 @@ namespace HRMS.Controllers
             }
 
             var employeeViewModel =
-                _mapper.Map<EmployeeViewModel>(employee);
+                _mapper.Map<EmployeeViewModel>(
+                    employee);
 
-            await LoadDepartmentsAsync(employee.DepartmentId);
+            await LoadDepartmentsAsync(
+                employee.DepartmentId);
 
             return View(employeeViewModel);
         }
 
-        // POST: Employee/Edit/5
+
+        // =========================================================
+        // EDIT EMPLOYEE - POST
+        // =========================================================
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(
@@ -144,39 +228,62 @@ namespace HRMS.Controllers
                 return BadRequest();
             }
 
+
             if (!ModelState.IsValid)
             {
-                await LoadDepartmentsAsync(employeeViewModel.DepartmentId);
+                await LoadDepartmentsAsync(
+                    employeeViewModel.DepartmentId);
 
                 return View(employeeViewModel);
             }
 
+
             var employee =
-                await _employeeRepository.GetEmployeeByIdAsync(id);
+                await _employeeRepository
+                    .GetEmployeeByIdAsync(id);
 
             if (employee == null)
             {
                 return NotFound();
             }
 
-            employee.EmployeeName = employeeViewModel.EmployeeName;
-            employee.Email = employeeViewModel.Email;
-            employee.PhoneNumber = employeeViewModel.PhoneNumber;
-            employee.Designation = employeeViewModel.Designation;
-            employee.JoiningDate = employeeViewModel.JoiningDate;
-            employee.DepartmentId = employeeViewModel.DepartmentId;
 
-            await _employeeRepository.UpdateEmployeeAsync(employee);
-           
+            employee.EmployeeName =
+                employeeViewModel.EmployeeName;
+
+            employee.Email =
+                employeeViewModel.Email;
+
+            employee.PhoneNumber =
+                employeeViewModel.PhoneNumber;
+
+            employee.Designation =
+                employeeViewModel.Designation;
+
+            employee.JoiningDate =
+                employeeViewModel.JoiningDate;
+
+            employee.DepartmentId =
+                employeeViewModel.DepartmentId;
+
+
+            await _employeeRepository
+                .UpdateEmployeeAsync(employee);
+
 
             return RedirectToAction("Index");
         }
 
-        // GET: Employee/Delete/5
+
+        // =========================================================
+        // DELETE EMPLOYEE - GET
+        // =========================================================
+
         public async Task<IActionResult> Delete(int id)
         {
             var employee =
-                await _employeeRepository.GetEmployeeByIdAsync(id);
+                await _employeeRepository
+                    .GetEmployeeByIdAsync(id);
 
             if (employee == null)
             {
@@ -184,32 +291,46 @@ namespace HRMS.Controllers
             }
 
             var employeeViewModel =
-                _mapper.Map<EmployeeViewModel>(employee);
+                _mapper.Map<EmployeeViewModel>(
+                    employee);
 
             return View(employeeViewModel);
         }
 
-        // POST: Employee/Delete/5
+
+        // =========================================================
+        // DELETE EMPLOYEE - POST
+        // =========================================================
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(
+            int id)
         {
-            await _employeeRepository.DeleteEmployeeAsync(id);
+            await _employeeRepository
+                .DeleteEmployeeAsync(id);
 
             return RedirectToAction("Index");
         }
 
-        // Loads departments for dropdown
-        private async Task LoadDepartmentsAsync(int? selectedDepartmentId = null)
+
+        // =========================================================
+        // LOAD DEPARTMENTS
+        // =========================================================
+
+        private async Task LoadDepartmentsAsync(
+            int? selectedDepartmentId = null)
         {
             var departments =
-                await _departmentRepository.GetAllDepartmentsAsync();
+                await _departmentRepository
+                    .GetAllDepartmentsAsync();
 
-            ViewBag.Departments = new SelectList(
-                departments,
-                "DepartmentId",
-                "DepartmentName",
-                selectedDepartmentId);
+            ViewBag.Departments =
+                new SelectList(
+                    departments,
+                    "DepartmentId",
+                    "DepartmentName",
+                    selectedDepartmentId);
         }
     }
 }
