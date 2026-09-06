@@ -1,0 +1,143 @@
+﻿@model HRMS.Models.LeaveRequest
+
+@{
+    ViewData["Title"] = "Leave Request Details";
+}
+
+<div class="container mt-4">
+
+    <div class="mb-4">
+        <h2 class="fw-bold">Leave Request Details</h2>
+        <p class="text-muted">
+            View complete leave request information.
+        </p>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+
+            <dl class="row">
+
+                <dt class="col-sm-4">
+                    Employee
+                </dt>
+
+                <dd class="col-sm-8">
+                    @(Model.Employee?.EmployeeName
+                        ?? $"Employee #{Model.EmployeeId}")
+                </dd>
+
+
+                <dt class="col-sm-4">
+                    Leave Type
+                </dt>
+
+                <dd class="col-sm-8">
+                    @Model.LeaveType
+                </dd>
+
+
+                <dt class="col-sm-4">
+                    Start Date
+                </dt>
+
+                <dd class="col-sm-8">
+                    @Model.StartDate.ToString("dd-MM-yyyy")
+                </dd>
+
+
+                <dt class="col-sm-4">
+                    End Date
+                </dt>
+
+                <dd class="col-sm-8">
+                    @Model.EndDate.ToString("dd-MM-yyyy")
+                </dd>
+
+
+                <dt class="col-sm-4">
+                    Reason
+                </dt>
+
+                <dd class="col-sm-8">
+                    @Model.Reason
+                </dd>
+
+
+                <dt class="col-sm-4">
+                    Status
+                </dt>
+
+                <dd class="col-sm-8">
+
+                    @if (Model.Status == "Approved")
+                    {
+                        <span class="badge bg-success">
+                            Approved
+                        </span>
+                    }
+                    else if (Model.Status == "Rejected")
+                    {
+                        <span class="badge bg-danger">
+                            Rejected
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning text-dark">
+                            Pending
+                        </span>
+                    }
+
+                </dd>
+
+            </dl>
+
+            @if (Model.Status == "Pending")
+            {
+                <div class="mt-4">
+
+                    <form asp-action="Approve"
+                          asp-route-id="@Model.LeaveRequestId"
+                          method="post"
+                          class="d-inline">
+
+                        @Html.AntiForgeryToken()
+
+                        <button type="submit"
+                                class="btn btn-success">
+                            Approve
+                        </button>
+
+                    </form>
+
+                    <form asp-action="Reject"
+                          asp-route-id="@Model.LeaveRequestId"
+                          method="post"
+                          class="d-inline">
+
+                        @Html.AntiForgeryToken()
+
+                        <button type="submit"
+                                class="btn btn-danger ms-2">
+                            Reject
+                        </button>
+
+                    </form>
+
+                </div>
+            }
+
+            <div class="mt-4">
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+                    Back to Leave Requests
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

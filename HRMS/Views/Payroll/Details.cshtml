@@ -1,0 +1,75 @@
+﻿@model HRMS.ViewModels.Payroll.PayrollViewModel
+
+@{
+    ViewData["Title"] = "Payroll Details";
+}
+
+<div class="container mt-4">
+
+    <div class="mb-4">
+        <h2 class="fw-bold">Payroll Details</h2>
+        <p class="text-muted">
+            View payroll information.
+        </p>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <dl class="row">
+
+                <dt class="col-sm-4">Employee</dt>
+                <dd class="col-sm-8">
+                    @(string.IsNullOrEmpty(Model.EmployeeName)
+                        ? $"Employee #{Model.EmployeeId}"
+                        : Model.EmployeeName)
+                </dd>
+
+                <dt class="col-sm-4">Salary Month</dt>
+                <dd class="col-sm-8">
+                    @Model.SalaryMonth.ToString("MMMM yyyy")
+                </dd>
+
+                <dt class="col-sm-4">Basic Salary</dt>
+                <dd class="col-sm-8">
+                    ₹@Model.BasicSalary.ToString("N2")
+                </dd>
+
+                <dt class="col-sm-4">Allowance</dt>
+                <dd class="col-sm-8">
+                    ₹@Model.Allowance.ToString("N2")
+                </dd>
+
+                <dt class="col-sm-4">Deduction</dt>
+                <dd class="col-sm-8">
+                    ₹@Model.Deduction.ToString("N2")
+                </dd>
+
+                <dt class="col-sm-4">Net Salary</dt>
+                <dd class="col-sm-8">
+                    <strong>
+                        ₹@Model.NetSalary.ToString("N2")
+                    </strong>
+                </dd>
+
+            </dl>
+
+            <div class="mt-4">
+
+                <a asp-action="Edit"
+                   asp-route-id="@Model.PayrollId"
+                   class="btn btn-warning">
+                    Edit
+                </a>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary ms-2">
+                    Back to Payroll
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

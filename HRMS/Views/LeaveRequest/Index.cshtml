@@ -1,0 +1,150 @@
+﻿@model IEnumerable<HRMS.Models.LeaveRequest>
+
+@{
+    ViewData["Title"] = "Leave Requests";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Leave Requests</h2>
+            <p class="text-muted mb-0">
+                Review and manage employee leave requests.
+            </p>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+
+            @if (!Model.Any())
+            {
+                <div class="text-center py-5">
+                    <h5>No leave requests found</h5>
+                    <p class="text-muted">
+                        There are currently no leave requests.
+                    </p>
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+
+                    <table class="table table-hover align-middle">
+
+                        <thead>
+                            <tr>
+                                <th>Employee</th>
+                                <th>Leave Type</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Reason</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @(item.Employee?.EmployeeName
+                                            ?? $"Employee #{item.EmployeeId}")
+                                    </td>
+
+                                    <td>
+                                        @item.LeaveType
+                                    </td>
+
+                                    <td>
+                                        @item.StartDate.ToString("dd-MM-yyyy")
+                                    </td>
+
+                                    <td>
+                                        @item.EndDate.ToString("dd-MM-yyyy")
+                                    </td>
+
+                                    <td>
+                                        @item.Reason
+                                    </td>
+
+                                    <td>
+                                        @if (item.Status == "Approved")
+                                        {
+                                            <span class="badge bg-success">
+                                                Approved
+                                            </span>
+                                        }
+                                        else if (item.Status == "Rejected")
+                                        {
+                                            <span class="badge bg-danger">
+                                                Rejected
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-warning text-dark">
+                                                Pending
+                                            </span>
+                                        }
+                                    </td>
+
+                                    <td>
+
+                                        <a asp-action="Details"
+                                           asp-route-id="@item.LeaveRequestId"
+                                           class="btn btn-sm btn-info">
+                                            Details
+                                        </a>
+
+                                        @if (item.Status == "Pending")
+                                        {
+                                            <form asp-action="Approve"
+                                                  asp-route-id="@item.LeaveRequestId"
+                                                  method="post"
+                                                  class="d-inline">
+
+                                                @Html.AntiForgeryToken()
+
+                                                <button type="submit"
+                                                        class="btn btn-sm btn-success">
+                                                    Approve
+                                                </button>
+
+                                            </form>
+
+                                            <form asp-action="Reject"
+                                                  asp-route-id="@item.LeaveRequestId"
+                                                  method="post"
+                                                  class="d-inline">
+
+                                                @Html.AntiForgeryToken()
+
+                                                <button type="submit"
+                                                        class="btn btn-sm btn-danger">
+                                                    Reject
+                                                </button>
+
+                                            </form>
+                                        }
+
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            }
+
+        </div>
+    </div>
+
+</div>

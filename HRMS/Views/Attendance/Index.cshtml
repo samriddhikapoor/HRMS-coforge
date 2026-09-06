@@ -1,0 +1,88 @@
+﻿@model IEnumerable<HRMS.Models.Attendance>
+
+@{
+    ViewData["Title"] = "Employee Attendance";
+}
+
+<div class="container mt-4">
+
+    <div class="mb-4">
+        <h2 class="fw-bold">Employee Attendance</h2>
+        <p class="text-muted">
+            View attendance records of all employees.
+        </p>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            @if (Model != null && Model.Any())
+            {
+                <div class="table-responsive">
+
+                    <table class="table table-hover align-middle">
+
+                        <thead>
+                            <tr>
+                                <th>Employee ID</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Check In</th>
+                                <th>Check Out</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var attendance in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @attendance.EmployeeId
+                                    </td>
+
+                                    <td>
+                                        @attendance.AttendanceDate.ToString("dd MMM yyyy")
+                                    </td>
+
+                                    <td>
+                                        <span class="badge bg-primary">
+                                            @attendance.Status
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        @attendance.CheckInTime
+                                    </td>
+
+                                    <td>
+                                        @attendance.CheckOutTime
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-5">
+                    <h5 class="text-muted">
+                        No attendance records found.
+                    </h5>
+                </div>
+            }
+
+            <div class="mt-3">
+                <a asp-controller="HRDashboard"
+                   asp-action="Index"
+                   class="btn btn-secondary">
+                    Back to Dashboard
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,72 @@
+﻿@model HRMS.Models.PerformanceReview
+
+@{
+    ViewData["Title"] = "Performance Review Details";
+}
+
+<div class="container mt-4">
+
+    <div class="mb-4">
+        <h2 class="fw-bold">Performance Review Details</h2>
+        <p class="text-muted">
+            View employee performance review details.
+        </p>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+
+            <dl class="row">
+
+                <dt class="col-sm-3">
+                    Employee
+                </dt>
+                <dd class="col-sm-9">
+                    @(Model.Employee?.EmployeeName
+                        ?? $"Employee #{Model.EmployeeId}")
+                </dd>
+
+                <dt class="col-sm-3">
+                    Review Date
+                </dt>
+                <dd class="col-sm-9">
+                    @Model.ReviewDate.ToString("dd-MM-yyyy")
+                </dd>
+
+                <dt class="col-sm-3">
+                    Rating
+                </dt>
+                <dd class="col-sm-9">
+                    <strong>@Model.Rating / 5</strong>
+                </dd>
+
+                <dt class="col-sm-3">
+                    Comments
+                </dt>
+                <dd class="col-sm-9">
+                    @(string.IsNullOrWhiteSpace(Model.Comments)
+                        ? "No comments provided."
+                        : Model.Comments)
+                </dd>
+
+            </dl>
+
+            <div class="mt-4">
+
+                <a asp-action="Edit"
+                   asp-route-id="@Model.PerformanceReviewId"
+                   class="btn btn-warning">
+                    Edit
+                </a>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary ms-2">
+                    Back
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

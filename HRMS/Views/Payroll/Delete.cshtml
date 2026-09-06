@@ -1,0 +1,84 @@
+﻿@model HRMS.ViewModels.Payroll.PayrollViewModel
+
+@{
+    ViewData["Title"] = "Delete Payroll";
+}
+
+<div class="container mt-4">
+
+    <div class="mb-4">
+        <h2 class="fw-bold text-danger">Delete Payroll</h2>
+        <p class="text-muted">
+            Are you sure you want to delete this payroll record?
+        </p>
+    </div>
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <dl class="row">
+
+                <dt class="col-sm-4">Employee</dt>
+                <dd class="col-sm-8">
+                    @(string.IsNullOrEmpty(Model.EmployeeName)
+                        ? $"Employee #{Model.EmployeeId}"
+                        : Model.EmployeeName)
+                </dd>
+
+                <dt class="col-sm-4">Salary Month</dt>
+                <dd class="col-sm-8">
+                    @Model.SalaryMonth.ToString("MMMM yyyy")
+                </dd>
+
+                <dt class="col-sm-4">Basic Salary</dt>
+                <dd class="col-sm-8">
+                    ₹@Model.BasicSalary.ToString("N2")
+                </dd>
+
+                <dt class="col-sm-4">Allowance</dt>
+                <dd class="col-sm-8">
+                    ₹@Model.Allowance.ToString("N2")
+                </dd>
+
+                <dt class="col-sm-4">Deduction</dt>
+                <dd class="col-sm-8">
+                    ₹@Model.Deduction.ToString("N2")
+                </dd>
+
+                <dt class="col-sm-4">Net Salary</dt>
+                <dd class="col-sm-8">
+                    <strong>
+                        ₹@Model.NetSalary.ToString("N2")
+                    </strong>
+                </dd>
+
+            </dl>
+
+            <form asp-action="Delete"
+                  method="post">
+
+                <input type="hidden"
+                       asp-for="PayrollId" />
+
+                <input type="hidden"
+                       name="id"
+                       value="@Model.PayrollId" />
+
+                <button type="submit"
+                        class="btn btn-danger">
+                    Yes, Delete
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary ms-2">
+                    Cancel
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

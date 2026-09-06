@@ -1,21 +1,145 @@
 @page
 @model LogoutModel
+
 @{
     ViewData["Title"] = "Log out";
 }
 
-<header>
-    <h1>@ViewData["Title"]</h1>
-    @{
-        if (User.Identity?.IsAuthenticated ?? false)
+<style>
+    .logout-page {
+        min-height: calc(100vh - 68px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px 20px;
+        background: radial-gradient(circle at 15% 20%, rgba(37, 140, 251, 0.08), transparent 30%), radial-gradient(circle at 85% 80%, rgba(111, 66, 193, 0.08), transparent 30%), #f5f7fb;
+    }
+
+    .logout-card {
+        width: 100%;
+        max-width: 480px;
+        background: white;
+        border-radius: 22px;
+        padding: 45px;
+        text-align: center;
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.09);
+    }
+
+    .logout-icon {
+        width: 78px;
+        height: 78px;
+        margin: 0 auto 25px;
+        border-radius: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #eef5ff;
+        color: #258cfb;
+        font-size: 34px;
+    }
+
+    .logout-card h1 {
+        font-size: 28px;
+        font-weight: 700;
+        color: #182235;
+        margin-bottom: 12px;
+    }
+
+    .logout-card p {
+        color: #7a8495;
+        font-size: 14px;
+        line-height: 1.7;
+        margin-bottom: 28px;
+    }
+
+    .logout-button {
+        width: 100%;
+        border: none;
+        border-radius: 10px;
+        padding: 13px;
+        background: #182235;
+        color: white;
+        font-weight: 600;
+        font-size: 14px;
+        transition: 0.2s ease;
+    }
+
+        .logout-button:hover {
+            background: #258cfb;
+            transform: translateY(-1px);
+        }
+
+    .cancel-link {
+        display: inline-block;
+        margin-top: 18px;
+        color: #258cfb;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+        .cancel-link:hover {
+            text-decoration: underline;
+        }
+</style>
+
+
+<div class="logout-page">
+
+    <div class="logout-card">
+
+        @if (User.Identity?.IsAuthenticated ?? false)
         {
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                <button type="submit" class="nav-link btn btn-link text-dark">Click here to Logout</button>
+            <div class="logout-icon">
+                ⇥
+            </div>
+
+            <h1>Ready to sign out?</h1>
+
+            <p>
+                You are about to leave your HRMS workspace.
+                Your session will be securely ended.
+            </p>
+
+            <form asp-area="Identity"
+                  asp-page="/Account/Logout"
+                  asp-route-returnUrl="@Url.Page("/", new { area = "" })"
+                  method="post">
+
+                <button type="submit"
+                        class="logout-button">
+                    Sign out securely
+                </button>
+
             </form>
+
+            <a asp-area=""
+               asp-controller="Home"
+               asp-action="Index"
+               class="cancel-link">
+                Stay signed in
+            </a>
         }
         else
         {
-            <p>You have successfully logged out of the application.</p>
+            <div class="logout-icon">
+                ✓
+            </div>
+
+            <h1>You're signed out</h1>
+
+            <p>
+                Your HRMS session has ended successfully.
+                You can sign in again whenever you're ready.
+            </p>
+
+            <a asp-area="Identity"
+               asp-page="/Account/Login"
+               class="logout-button d-block text-decoration-none">
+                Sign in again
+            </a>
         }
-    }
-</header>
+
+    </div>
+
+</div>

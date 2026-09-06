@@ -1,0 +1,178 @@
+﻿@model HRMS.ViewModels.Payroll.PayrollViewModel
+
+@{
+    ViewData["Title"] = "Edit Payroll";
+}
+
+<div class="container mt-4">
+
+    <div class="mb-4">
+        <h2 class="fw-bold">Edit Payroll</h2>
+        <p class="text-muted">
+            Update payroll information.
+        </p>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <form asp-action="Edit" method="post">
+
+                <input type="hidden" asp-for="PayrollId" />
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3">
+                </div>
+
+                <!-- Employee -->
+                <div class="mb-3">
+                    <label asp-for="EmployeeId" class="form-label">
+                        Employee
+                    </label>
+
+                    <select asp-for="EmployeeId"
+                            asp-items="ViewBag.Employees"
+                            class="form-select">
+                        <option value="">-- Select Employee --</option>
+                    </select>
+
+                    <span asp-validation-for="EmployeeId"
+                          class="text-danger">
+                    </span>
+                </div>
+
+                <!-- Salary Month -->
+                <div class="mb-3">
+                    <label asp-for="SalaryMonth" class="form-label">
+                        Salary Month
+                    </label>
+
+                    <input asp-for="SalaryMonth"
+                           type="month"
+                           class="form-control" />
+
+                    <span asp-validation-for="SalaryMonth"
+                          class="text-danger">
+                    </span>
+                </div>
+
+                <!-- Basic Salary -->
+                <div class="mb-3">
+                    <label asp-for="BasicSalary" class="form-label">
+                        Basic Salary
+                    </label>
+
+                    <input asp-for="BasicSalary"
+                           type="number"
+                           step="0.01"
+                           min="0"
+                           class="form-control" />
+
+                    <span asp-validation-for="BasicSalary"
+                          class="text-danger">
+                    </span>
+                </div>
+
+                <!-- Allowance -->
+                <div class="mb-3">
+                    <label asp-for="Allowance" class="form-label">
+                        Allowance
+                    </label>
+
+                    <input asp-for="Allowance"
+                           type="number"
+                           step="0.01"
+                           min="0"
+                           class="form-control" />
+
+                    <span asp-validation-for="Allowance"
+                          class="text-danger">
+                    </span>
+                </div>
+
+                <!-- Deduction -->
+                <div class="mb-3">
+                    <label asp-for="Deduction" class="form-label">
+                        Deduction
+                    </label>
+
+                    <input asp-for="Deduction"
+                           type="number"
+                           step="0.01"
+                           min="0"
+                           class="form-control" />
+
+                    <span asp-validation-for="Deduction"
+                          class="text-danger">
+                    </span>
+                </div>
+
+                <!-- Net Salary -->
+                <div class="mb-3">
+                    <label class="form-label">
+                        Net Salary
+                    </label>
+
+                    <input id="netSalary"
+                           type="text"
+                           class="form-control"
+                           value="@Model.NetSalary.ToString("0.00")"
+                           readonly />
+                </div>
+
+                <div class="mt-4">
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Save Changes
+                    </button>
+
+                    <a asp-action="Index"
+                       class="btn btn-secondary ms-2">
+                        Cancel
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        function calculateNetSalary() {
+
+            const basic =
+                parseFloat(document.getElementById("BasicSalary").value) || 0;
+
+            const allowance =
+                parseFloat(document.getElementById("Allowance").value) || 0;
+
+            const deduction =
+                parseFloat(document.getElementById("Deduction").value) || 0;
+
+            const netSalary =
+                basic + allowance - deduction;
+
+            document.getElementById("netSalary").value =
+                netSalary.toFixed(2);
+        }
+
+        document.getElementById("BasicSalary")
+            .addEventListener("input", calculateNetSalary);
+
+        document.getElementById("Allowance")
+            .addEventListener("input", calculateNetSalary);
+
+        document.getElementById("Deduction")
+            .addEventListener("input", calculateNetSalary);
+
+        calculateNetSalary();
+    </script>
+}

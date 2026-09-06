@@ -3,6 +3,7 @@ using HRMS.Repositories.Implementations;
 using HRMS.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using AutoMapper;
 
 namespace HRMS
@@ -19,7 +20,7 @@ namespace HRMS
             builder.Services
                 .AddDefaultIdentity<ApplicationUser>(options =>
                 {
-                    options.SignIn.RequireConfirmedAccount = true;
+                    options.SignIn.RequireConfirmedAccount = false;
                 })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<HRMSContext>();
@@ -42,6 +43,7 @@ namespace HRMS
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
+            
 
             var app = builder.Build();
 

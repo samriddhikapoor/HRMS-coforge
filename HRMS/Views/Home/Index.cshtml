@@ -2,314 +2,319 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="container-fluid">
+<div class="hrms-home">
 
-    <!-- HERO SECTION -->
-    <div class="card border-0 shadow-sm mb-4"
-         style="background: linear-gradient(135deg, #212529, #343a40); color: white;">
+    <!-- NAVBAR -->
+    <nav class="home-navbar">
 
-        <div class="card-body p-5">
+        <a asp-controller="Home"
+           asp-action="Index"
+           class="home-brand">
+            <span class="brand-icon">✦</span>
 
-            <div class="row align-items-center">
+            <div>
+                <strong>HRMS</strong>
+                <small>WORKFORCE HUB</small>
+            </div>
+        </a>
 
-                <div class="col-lg-8">
+        <div class="home-nav-links">
 
-                    <span class="badge bg-light text-dark mb-3 px-3 py-2">
-                        HRMS PORTAL
-                    </span>
+            <a asp-controller="Home"
+               asp-action="Index"
+               class="active">
+                Home
+            </a>
 
-                    <h1 class="display-5 fw-bold mb-3">
-                        Human Resource Management System
-                    </h1>
+            <a href="#about">
+                About
+            </a>
 
-                    <p class="lead mb-4">
-                        Manage employees, departments, attendance,
-                        leaves and other HR operations from one place.
-                    </p>
+            <a href="#features">
+                Features
+            </a>
 
-                    @if (User.Identity != null && User.Identity.IsAuthenticated)
-                    {
-                        <a asp-controller="Home"
-                           asp-action="Index"
-                           class="btn btn-light px-4">
-                            Go to Dashboard
-                        </a>
-                    }
-                    else
-                    {
-                        <a asp-area="Identity"
-                           asp-page="/Account/Login"
-                           class="btn btn-light px-4 me-2">
-                            Login
-                        </a>
+        </div>
 
-                        <a asp-area="Identity"
-                           asp-page="/Account/Register"
-                           class="btn btn-outline-light px-4">
-                            Register
-                        </a>
-                    }
+        <div class="home-auth">
 
-                </div>
+            <a asp-area="Identity"
+               asp-page="/Account/Login"
+               class="btn-login">
+                Login
+            </a>
 
-                <div class="col-lg-4 text-center mt-4 mt-lg-0">
+            <a asp-area="Identity"
+               asp-page="/Account/Register"
+               class="btn-register">
+                Register
+            </a>
 
-                    <div style="font-size: 110px;">
-                        👥
-                    </div>
+        </div>
 
-                </div>
+    </nav>
+
+
+    <!-- HERO -->
+    <section class="hero-section">
+
+        <div class="hero-content">
+
+            <div class="welcome-badge">
+                <span></span>
+                WELCOME TO HRMS
+            </div>
+
+            <h1>
+                People.
+                Process.
+                <span>Progress.</span>
+            </h1>
+
+            <p>
+                A centralized platform to manage your workforce,
+                simplify HR operations and streamline everyday
+                HR operations.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a asp-area="Identity"
+                   asp-page="/Account/Login"
+                   class="primary-cta">
+                    Login
+                    <span>→</span>
+                </a>
+
+                <a asp-area="Identity"
+                   asp-page="/Account/Register"
+                   class="secondary-cta">
+                    Create Account
+                </a>
 
             </div>
 
         </div>
 
-    </div>
 
+        <!-- HERO CARD -->
+        <div class="hero-card">
 
-    <!-- HRMS MODULES -->
-    <div class="mb-4">
+            <div class="hero-card-header">
 
-        <h4 class="fw-bold mb-1">
-            HRMS Modules
-        </h4>
-
-        <p class="text-muted">
-            Everything you need to manage your workforce.
-        </p>
-
-    </div>
-
-
-    <div class="row g-4">
-
-        <!-- Employee Management -->
-        <div class="col-xl-3 col-md-6">
-
-            <div class="card h-100 p-4">
-
-                <div class="fs-1 mb-3">
-                    👥
+                <div class="mini-logo">
+                    ✦
                 </div>
 
-                <h5 class="fw-bold">
-                    Employee Management
-                </h5>
+                <div>
+                    <strong>HRMS</strong>
+                    <small>Workforce Hub</small>
+                </div>
 
-                <p class="text-muted">
-                    Maintain employee profiles, details and
+            </div>
+
+            <div class="hero-card-body">
+
+                <div class="mini-stat">
+                    <span>Employees</span>
+                    <strong>Management</strong>
+                </div>
+
+                <div class="mini-stat">
+                    <span>Attendance</span>
+                    <strong>Tracking</strong>
+                </div>
+
+                <div class="mini-stat">
+                    <span>Leave</span>
+                    <strong>Requests</strong>
+                </div>
+
+                <div class="mini-stat">
+                    <span>Payroll</span>
+                    <strong>Processing</strong>
+                </div>
+
+            </div>
+
+            <div class="hero-card-footer">
+                <span>●</span>
+                Centralized HR Operations
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+    @* <section class="features-section" id="features">
+
+        <div class="section-heading">
+
+            <div>
+                <span class="section-label">EXPLORE</span>
+
+                <h2>
+                    Everything in one workspace.
+                </h2>
+            </div>
+
+            <p>
+                Manage the core operations of your Human
+                Resource Management System from one place.
+            </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+            <a asp-controller="Employee"
+               asp-action="Index"
+               class="feature-card">
+
+                <div class="feature-icon purple">♟</div>
+
+                <h3>Employees</h3>
+
+                <p>
+                    Manage employee profiles and
                     organizational information.
                 </p>
 
-                <a href="#"
-                   class="btn btn-outline-primary mt-auto">
-                    Explore
-                </a>
+                <span class="feature-link">
+                    View Employees →
+                </span>
 
-            </div>
-
-        </div>
+            </a>
 
 
-        <!-- Departments -->
-        <div class="col-xl-3 col-md-6">
+            <a asp-controller="Department"
+               asp-action="Index"
+               class="feature-card">
 
-            <div class="card h-100 p-4">
+                <div class="feature-icon blue">▦</div>
 
-                <div class="fs-1 mb-3">
-                    🏢
-                </div>
+                <h3>Departments</h3>
 
-                <h5 class="fw-bold">
-                    Departments
-                </h5>
-
-                <p class="text-muted">
-                    Organize employees and manage departments
-                    within the organization.
+                <p>
+                    Organize teams and maintain
+                    department information.
                 </p>
 
-                <a href="#"
-                   class="btn btn-outline-primary mt-auto">
-                    Explore
-                </a>
+                <span class="feature-link">
+                    View Departments →
+                </span>
 
-            </div>
-
-        </div>
+            </a>
 
 
-        <!-- Attendance -->
-        <div class="col-xl-3 col-md-6">
+            <a asp-controller="Attendance"
+               asp-action="Index"
+               class="feature-card">
 
-            <div class="card h-100 p-4">
+                <div class="feature-icon green">◷</div>
 
-                <div class="fs-1 mb-3">
-                    🕐
-                </div>
+                <h3>Attendance</h3>
 
-                <h5 class="fw-bold">
-                    Attendance
-                </h5>
-
-                <p class="text-muted">
-                    Track employee attendance and maintain
-                    daily attendance records.
+                <p>
+                    Track daily attendance and
+                    employee presence.
                 </p>
 
-                <a href="#"
-                   class="btn btn-outline-primary mt-auto">
-                    Explore
-                </a>
+                <span class="feature-link">
+                    View Attendance →
+                </span>
 
-            </div>
-
-        </div>
+            </a>
 
 
-        <!-- Leave -->
-        <div class="col-xl-3 col-md-6">
+            <a asp-controller="LeaveRequest"
+               asp-action="Index"
+               class="feature-card">
 
-            <div class="card h-100 p-4">
+                <div class="feature-icon orange">✓</div>
 
-                <div class="fs-1 mb-3">
-                    📝
-                </div>
+                <h3>Leave Requests</h3>
 
-                <h5 class="fw-bold">
-                    Leave Management
-                </h5>
-
-                <p class="text-muted">
-                    Submit, review and manage employee leave
-                    requests.
+                <p>
+                    Submit, review and manage
+                    employee leave requests.
                 </p>
 
-                <a href="#"
-                   class="btn btn-outline-primary mt-auto">
-                    Explore
-                </a>
+                <span class="feature-link">
+                    View Requests →
+                </span>
 
-            </div>
-
-        </div>
-
-    </div>
+            </a>
 
 
-    <!-- SYSTEM FEATURES -->
-    <div class="row g-4 mt-2">
+            <a asp-controller="Payroll"
+               asp-action="Index"
+               class="feature-card">
 
-        <div class="col-lg-7">
+                <div class="feature-icon teal">₹</div>
 
-            <div class="card h-100 p-4">
+                <h3>Payroll</h3>
 
-                <h5 class="fw-bold mb-3">
-                    Why HRMS?
-                </h5>
+                <p>
+                    Manage salary and payroll
+                    related information.
+                </p>
 
-                <div class="row g-3">
+                <span class="feature-link">
+                    View Payroll →
+                </span>
 
-                    <div class="col-md-6">
-                        <div class="d-flex gap-3">
-                            <span class="fs-4">🔐</span>
-                            <div>
-                                <strong>Secure Access</strong>
-                                <p class="text-muted small mb-0">
-                                    Role-based access using Identity.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+            </a>
 
-                    <div class="col-md-6">
-                        <div class="d-flex gap-3">
-                            <span class="fs-4">📊</span>
-                            <div>
-                                <strong>Centralized Data</strong>
-                                <p class="text-muted small mb-0">
-                                    Manage HR information in one system.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col-md-6">
-                        <div class="d-flex gap-3">
-                            <span class="fs-4">⚡</span>
-                            <div>
-                                <strong>Easy Management</strong>
-                                <p class="text-muted small mb-0">
-                                    Simplify everyday HR operations.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+            <a asp-controller="PerformanceReview"
+               asp-action="Index"
+               class="feature-card">
 
-                    <div class="col-md-6">
-                        <div class="d-flex gap-3">
-                            <span class="fs-4">📱</span>
-                            <div>
-                                <strong>Responsive UI</strong>
-                                <p class="text-muted small mb-0">
-                                    Works across different screen sizes.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="feature-icon pink">★</div>
 
-                </div>
+                <h3>Performance</h3>
 
-            </div>
+                <p>
+                    Review employee performance
+                    and evaluations.
+                </p>
+
+                <span class="feature-link">
+                    View Performance →
+                </span>
+
+            </a>
 
         </div>
 
+    </section> *@
 
-        <!-- ROLES -->
-        <div class="col-lg-5">
 
-            <div class="card h-100 p-4">
+    <!-- ABOUT -->
+    <section class="about-section" id="about">
 
-                <h5 class="fw-bold mb-3">
-                    User Roles
-                </h5>
+        <div class="about-card">
 
-                <div class="d-flex justify-content-between
-                    align-items-center border-bottom py-3">
+            <span class="section-label">
+                ABOUT HRMS
+            </span>
 
-                    <span>👑 Admin</span>
-                    <span class="badge bg-dark">Full Access</span>
+            <h2>
+                A simpler way to manage your workforce.
+            </h2>
 
-                </div>
-
-                <div class="d-flex justify-content-between
-                    align-items-center border-bottom py-3">
-
-                    <span>👩‍💼 HR</span>
-                    <span class="badge bg-primary">HR Management</span>
-
-                </div>
-
-                <div class="d-flex justify-content-between
-                    align-items-center border-bottom py-3">
-
-                    <span>👨‍💼 Manager</span>
-                    <span class="badge bg-secondary">Team Management</span>
-
-                </div>
-
-                <div class="d-flex justify-content-between
-                    align-items-center py-3">
-
-                    <span>👤 Employee</span>
-                    <span class="badge bg-success">Self Service</span>
-
-                </div>
-
-            </div>
+            <p>
+                HRMS brings employee management, attendance,
+                leave management, payroll and performance
+                operations together into one centralized platform.
+            </p>
 
         </div>
 
-    </div>
+    </section>
 
 </div>

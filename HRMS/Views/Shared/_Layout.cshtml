@@ -6,221 +6,26 @@
 
     <title>@ViewData["Title"] - HRMS</title>
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 
-    <!-- Application CSS -->
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/HRMS.styles.css" asp-append-version="true" />
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
 </head>
 
 <body>
 
-    <!-- TOP NAVBAR -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-            <div class="container-fluid px-4">
+    <main>
+        @RenderBody()
+    </main>
 
-                <!-- Brand -->
-                <a class="navbar-brand fw-bold fs-4"
-                   asp-area=""
-                   asp-controller="Home"
-                   asp-action="Index">
-                    🏢 HRMS
-                </a>
-
-                <!-- Mobile Toggle -->
-                <button class="navbar-toggler"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#topNavbar">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="topNavbar">
-
-                    <div class="ms-auto d-flex align-items-center gap-3">
-
-                        <!-- Notification -->
-                        <button class="btn btn-dark position-relative">
-                            🔔
-                            <span class="position-absolute top-0 start-100 translate-middle
-                                badge rounded-pill bg-danger">
-                                3
-                            </span>
-                        </button>
-
-                        @if (User.Identity != null && User.Identity.IsAuthenticated)
-                        {
-                            <!-- Logged In User -->
-                            <span class="text-white">
-                                👤 @User.Identity.Name
-                            </span>
-
-                            <!-- Logout -->
-                            <form asp-area="Identity"
-                                  asp-page="/Account/Logout"
-                                  method="post"
-                                  class="m-0">
-
-                                <button type="submit"
-                                        class="btn btn-outline-light btn-sm">
-                                    Logout
-                                </button>
-
-                            </form>
-                        }
-                        else
-                        {
-                            <a class="btn btn-outline-light btn-sm"
-                               asp-area="Identity"
-                               asp-page="/Account/Login">
-                                Login
-                            </a>
-
-                            <a class="btn btn-light btn-sm"
-                               asp-area="Identity"
-                               asp-page="/Account/Register">
-                                Register
-                            </a>
-                        }
-
-                    </div>
-
-                </div>
-
-            </div>
-        </nav>
-    </header>
-
-
-    <!-- APPLICATION BODY -->
-    <div class="container-fluid">
-
-        <div class="row">
-
-            <!-- SIDEBAR -->
-            <aside class="col-lg-2 col-md-3 bg-light border-end min-vh-100 p-3">
-
-                <!-- Sidebar Heading -->
-                <div class="mb-4">
-                    <small class="text-uppercase text-muted fw-bold">
-                        Main Menu
-                    </small>
-                </div>
-
-                <ul class="nav nav-pills flex-column gap-2">
-
-                    <!-- Dashboard -->
-                    <li class="nav-item">
-                        <a class="nav-link text-dark fw-semibold"
-                           asp-area=""
-                           asp-controller="Home"
-                           asp-action="Index">
-                            📊 Dashboard
-                        </a>
-                    </li>
-
-                    <hr />
-
-                    <!-- Management -->
-                    <li class="nav-item">
-                        <small class="text-muted fw-bold px-2">
-                            MANAGEMENT
-                        </small>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">
-                            👥 Employees
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">
-                            🏢 Departments
-                        </a>
-                    </li>
-
-                    <hr />
-
-                    <!-- Operations -->
-                    <li class="nav-item">
-                        <small class="text-muted fw-bold px-2">
-                            OPERATIONS
-                        </small>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">
-                            🕐 Attendance
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">
-                            📝 Leave Requests
-                        </a>
-                    </li>
-
-                    <hr />
-
-                    <!-- Finance -->
-                    <li class="nav-item">
-                        <small class="text-muted fw-bold px-2">
-                            FINANCE
-                        </small>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">
-                            💰 Payroll
-                        </a>
-                    </li>
-
-                    <hr />
-
-                    <!-- Performance -->
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">
-                            ⭐ Performance
-                        </a>
-                    </li>
-
-                </ul>
-
-            </aside>
-
-
-            <!-- MAIN CONTENT -->
-            <main class="col-lg-10 col-md-9 p-4">
-
-                <!-- Page Content -->
-                @RenderBody()
-
-            </main>
-
-        </div>
-
-    </div>
-
-
-    <!-- FOOTER -->
-    <footer class="border-top bg-light py-3">
-        <div class="container-fluid text-center text-muted">
-            <small>
-                © 2026 HRMS | Human Resource Management System
-            </small>
-        </div>
-    </footer>
-
-
-    <!-- JavaScript -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/site.js"
+            asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 
