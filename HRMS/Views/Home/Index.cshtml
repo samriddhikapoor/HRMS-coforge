@@ -2,6 +2,1253 @@
     ViewData["Title"] = "Home";
 }
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<style>
+    :root {
+        --plum: #352b38;
+        --gray: #7e808c;
+        --lavender: #dad8f9;
+        --lavender-deep: #b9b4f0;
+        --ivory: #f4f3f8;
+        --blush: #f8dde6;
+        --blush-deep: #e8a7c4;
+        --peach: #fbe6d8;
+        --mint: #dff3e3;
+        --sky: #dceefb;
+        --white: #ffffff;
+        --radius-xl: 32px;
+        --radius-lg: 26px;
+        --radius-md: 20px;
+        --radius-sm: 14px;
+        --shadow-soft: 0 25px 60px -25px rgba(53, 43, 56, 0.22);
+        --shadow-card: 0 12px 32px -14px rgba(53, 43, 56, 0.16);
+        --shadow-pop: 0 18px 40px -16px rgba(53, 43, 56, 0.28);
+    }
+
+    .hrms-home {
+        font-family: 'Urbanist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: radial-gradient(circle at 8% 8%, rgba(218, 216, 249, 0.5), transparent 40%), radial-gradient(circle at 95% 12%, rgba(248, 221, 230, 0.55), transparent 42%), var(--ivory);
+        color: var(--plum);
+        overflow-x: hidden;
+    }
+
+        .hrms-home * {
+            box-sizing: border-box;
+        }
+
+        .hrms-home img {
+            max-width: 100%;
+        }
+
+    .container-wrap {
+        max-width: 1360px;
+        margin: 0 auto;
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    /* ===== NAVBAR ===== */
+    .home-navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.5rem;
+        padding: 1.05rem 5%;
+        position: sticky;
+        top: 0;
+        z-index: 60;
+        background: rgba(244, 243, 248, 0.82);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(53, 43, 56, 0.06);
+    }
+
+    .home-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        text-decoration: none;
+        color: var(--plum);
+    }
+
+    .brand-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--lavender-deep), var(--blush-deep));
+        color: var(--white);
+        font-size: 1.1rem;
+        box-shadow: var(--shadow-card);
+    }
+
+    .home-brand strong {
+        display: block;
+        font-size: 1.05rem;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        line-height: 1.1;
+    }
+
+    .home-brand small {
+        display: block;
+        font-size: 0.6rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        color: var(--gray);
+    }
+
+    .home-nav-links {
+        display: flex;
+        gap: 2.2rem;
+    }
+
+        .home-nav-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.94rem;
+            position: relative;
+            padding: 0.3rem 0;
+            transition: color 0.2s ease;
+        }
+
+            .home-nav-links a i {
+                font-size: 0.9rem;
+            }
+
+            .home-nav-links a:hover,
+            .home-nav-links a.active {
+                color: var(--plum);
+            }
+
+                .home-nav-links a.active::after {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    bottom: -4px;
+                    width: 100%;
+                    height: 3px;
+                    border-radius: 3px;
+                    background: linear-gradient(90deg, var(--lavender-deep), var(--blush-deep));
+                }
+
+    .home-auth {
+        display: flex;
+        align-items: center;
+        gap: 0.9rem;
+    }
+
+    .btn-login {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        color: var(--plum);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.9rem;
+        padding: 0.6rem 1.1rem;
+        border-radius: 999px;
+        transition: background 0.2s ease;
+    }
+
+        .btn-login:hover {
+            background: rgba(53, 43, 56, 0.06);
+            color: var(--plum);
+        }
+
+    .btn-register {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        color: var(--white);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.9rem;
+        padding: 0.68rem 1.4rem;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--plum), #5a4a63);
+        box-shadow: var(--shadow-card);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-pop);
+            color: var(--white);
+        }
+
+    .nav-toggle {
+        display: none;
+        border: none;
+        background: var(--white);
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        align-items: center;
+        justify-content: center;
+        box-shadow: var(--shadow-card);
+        color: var(--plum);
+        font-size: 1.2rem;
+    }
+
+    /* ===== HERO ===== */
+    .hero-section {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        align-items: center;
+        gap: 3rem;
+        padding: 5rem 5% 8rem;
+        max-width: 1360px;
+        margin: 0 auto;
+    }
+
+    .hero-blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(70px);
+        z-index: 0;
+        opacity: 0.6;
+    }
+
+        .hero-blob.one {
+            width: 380px;
+            height: 380px;
+            background: var(--lavender);
+            top: -140px;
+            right: 8%;
+        }
+
+        .hero-blob.two {
+            width: 300px;
+            height: 300px;
+            background: var(--peach);
+            bottom: -80px;
+            left: -80px;
+        }
+
+        .hero-blob.three {
+            width: 200px;
+            height: 200px;
+            background: var(--blush);
+            top: 40%;
+            right: -60px;
+            opacity: 0.4;
+        }
+
+    .hero-content,
+    .hero-visual {
+        position: relative;
+        z-index: 1;
+    }
+
+    .welcome-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        background: var(--white);
+        color: var(--plum);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        padding: 0.55rem 1.1rem;
+        border-radius: 999px;
+        box-shadow: var(--shadow-card);
+        margin-bottom: 1.8rem;
+    }
+
+        .welcome-badge i {
+            font-size: 0.9rem;
+            background: linear-gradient(135deg, #b48ec9, var(--blush-deep));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+    .hero-content h1 {
+        font-size: 3.6rem;
+        font-weight: 900;
+        line-height: 1.08;
+        letter-spacing: -0.02em;
+        margin-bottom: 1.4rem;
+        color: var(--plum);
+    }
+
+        .hero-content h1 span {
+            background: linear-gradient(120deg, #b48ec9, var(--blush-deep));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+    .hero-content > p {
+        font-size: 1.1rem;
+        color: var(--gray);
+        max-width: 480px;
+        line-height: 1.75;
+        margin-bottom: 2.2rem;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-bottom: 2.6rem;
+    }
+
+    .primary-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        text-decoration: none;
+        background: var(--plum);
+        color: var(--white);
+        font-weight: 700;
+        padding: 1rem 1.9rem;
+        border-radius: 999px;
+        box-shadow: var(--shadow-soft);
+        transition: transform 0.2s ease;
+    }
+
+        .primary-cta:hover {
+            transform: translateY(-3px);
+            color: var(--white);
+        }
+
+        .primary-cta span {
+            transition: transform 0.2s ease;
+        }
+
+        .primary-cta:hover span {
+            transform: translateX(3px);
+        }
+
+    .secondary-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        text-decoration: none;
+        background: var(--white);
+        color: var(--plum);
+        font-weight: 700;
+        padding: 1rem 1.9rem;
+        border-radius: 999px;
+        box-shadow: var(--shadow-card);
+        border: 1px solid rgba(53, 43, 56, 0.08);
+        transition: transform 0.2s ease;
+    }
+
+        .secondary-cta:hover {
+            transform: translateY(-3px);
+            color: var(--plum);
+        }
+
+    .trust-row {
+        display: flex;
+        align-items: center;
+        gap: 1.6rem;
+        flex-wrap: wrap;
+    }
+
+    .trust-avatars {
+        display: flex;
+    }
+
+        .trust-avatars span {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 0.85rem;
+            font-weight: 700;
+            border: 2px solid var(--ivory);
+            margin-left: -10px;
+        }
+
+            .trust-avatars span:first-child {
+                margin-left: 0;
+            }
+
+            .trust-avatars span:nth-child(1) {
+                background: linear-gradient(135deg, #b48ec9, var(--blush-deep));
+            }
+
+            .trust-avatars span:nth-child(2) {
+                background: linear-gradient(135deg, var(--lavender-deep), #8fa8e8);
+            }
+
+            .trust-avatars span:nth-child(3) {
+                background: linear-gradient(135deg, #f0b199, #f5d08a);
+            }
+
+            .trust-avatars span:nth-child(4) {
+                background: var(--plum);
+            }
+
+    .trust-text strong {
+        display: block;
+        font-size: 0.9rem;
+        color: var(--plum);
+    }
+
+    .trust-text small {
+        color: var(--gray);
+        font-size: 0.8rem;
+    }
+
+    /* ===== HERO VISUAL ===== */
+    .hero-visual {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 420px;
+    }
+
+    .hero-card {
+        background: var(--white);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-soft);
+        padding: 1.9rem;
+        border: 1px solid rgba(53, 43, 56, 0.05);
+        width: 100%;
+        max-width: 380px;
+        position: relative;
+    }
+
+    .hero-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.8rem;
+        padding-bottom: 1.2rem;
+        margin-bottom: 1.3rem;
+        border-bottom: 1px dashed rgba(53, 43, 56, 0.1);
+    }
+
+        .hero-card-header .who {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+    .mini-logo {
+        width: 40px;
+        height: 40px;
+        border-radius: 13px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, var(--lavender-deep), var(--blush-deep));
+        color: var(--white);
+    }
+
+    .hero-card-header strong {
+        display: block;
+        font-size: 0.95rem;
+        font-weight: 800;
+    }
+
+    .hero-card-header small {
+        color: var(--gray);
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    .live-dot {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: var(--mint);
+        color: #3f9450;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+    }
+
+    .hero-card-body {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.9rem;
+        margin-bottom: 1.4rem;
+    }
+
+    .mini-stat {
+        border-radius: var(--radius-sm);
+        padding: 1.05rem 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        transition: transform 0.2s ease;
+    }
+
+        .mini-stat:hover {
+            transform: translateY(-3px);
+        }
+
+        .mini-stat:nth-child(1) {
+            background: var(--lavender);
+        }
+
+        .mini-stat:nth-child(2) {
+            background: var(--blush);
+        }
+
+        .mini-stat:nth-child(3) {
+            background: var(--peach);
+        }
+
+        .mini-stat:nth-child(4) {
+            background: var(--mint);
+        }
+
+        .mini-stat i {
+            font-size: 1.05rem;
+            color: var(--plum);
+            opacity: 0.8;
+        }
+
+        .mini-stat span {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            color: var(--plum);
+            opacity: 0.65;
+            text-transform: uppercase;
+        }
+
+        .mini-stat strong {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--plum);
+        }
+
+    .hero-progress {
+        background: var(--ivory);
+        border-radius: var(--radius-sm);
+        padding: 1rem 1.1rem;
+    }
+
+        .hero-progress .row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--plum);
+            margin-bottom: 0.5rem;
+        }
+
+            .hero-progress .row small {
+                color: var(--gray);
+                font-weight: 600;
+            }
+
+    .progress-track {
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(53, 43, 56, 0.08);
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        height: 100%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--lavender-deep), var(--blush-deep));
+        width: 78%;
+    }
+
+    .floating-chip {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        background: var(--white);
+        border-radius: 16px;
+        padding: 0.75rem 1rem;
+        box-shadow: var(--shadow-pop);
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--plum);
+        z-index: 2;
+    }
+
+        .floating-chip i {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            color: var(--white);
+        }
+
+    .chip-one {
+        top: -22px;
+        left: -30px;
+    }
+
+        .chip-one i {
+            background: linear-gradient(135deg, #6fbf7f, #a6dcae);
+        }
+
+    .chip-two {
+        bottom: -20px;
+        right: -26px;
+    }
+
+        .chip-two i {
+            background: linear-gradient(135deg, #f0b199, #f5d08a);
+        }
+
+    .chip-sub {
+        display: block;
+        font-weight: 600;
+        color: var(--gray);
+        font-size: 0.7rem;
+    }
+
+    /* ===== TRUST STRIP ===== */
+    .trust-strip {
+        padding: 0 5% 4rem;
+        max-width: 1360px;
+        margin: 0 auto;
+    }
+
+    .trust-strip-inner {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        padding: 1.6rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1.2rem;
+    }
+
+    .trust-item {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        color: var(--plum);
+        font-weight: 700;
+        font-size: 0.92rem;
+    }
+
+        .trust-item i {
+            font-size: 1.1rem;
+            color: var(--blush-deep);
+        }
+
+    /* ===== SECTION HEADING ===== */
+    .section-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 2rem;
+        margin-bottom: 2.8rem;
+        flex-wrap: wrap;
+    }
+
+    .section-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        color: var(--gray);
+        background: var(--white);
+        padding: 0.4rem 0.9rem;
+        border-radius: 999px;
+        margin-bottom: 0.9rem;
+        box-shadow: var(--shadow-card);
+    }
+
+        .section-label i {
+            font-size: 0.8rem;
+            color: var(--blush-deep);
+        }
+
+    .section-heading h2 {
+        font-size: 2.1rem;
+        font-weight: 800;
+        color: var(--plum);
+        max-width: 500px;
+        line-height: 1.25;
+    }
+
+    .section-heading > p {
+        color: var(--gray);
+        max-width: 340px;
+        line-height: 1.65;
+    }
+
+    /* ===== FEATURES (BENTO GRID) ===== */
+    .features-section {
+        padding: 2rem 5% 5.5rem;
+        max-width: 1360px;
+        margin: 0 auto;
+    }
+
+    .bento-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: 190px;
+        gap: 1.3rem;
+    }
+
+    .bento-card {
+        border-radius: var(--radius-md);
+        padding: 1.8rem;
+        box-shadow: var(--shadow-card);
+        border: 1px solid rgba(53, 43, 56, 0.05);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .bento-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-pop);
+        }
+
+        .bento-card.large {
+            grid-column: span 2;
+            grid-row: span 2;
+            background: linear-gradient(150deg, var(--lavender) 0%, var(--white) 65%);
+        }
+
+        .bento-card.wide {
+            grid-column: span 2;
+            background: var(--white);
+        }
+
+        .bento-card.tall {
+            grid-row: span 2;
+            background: var(--white);
+        }
+
+        .bento-card.solid {
+            background: var(--white);
+        }
+
+    .bento-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.3rem;
+        color: var(--white);
+    }
+
+        .bento-icon.purple {
+            background: linear-gradient(135deg, var(--lavender-deep), #8f7fd6);
+        }
+
+        .bento-icon.pink {
+            background: linear-gradient(135deg, var(--blush-deep), #d97fa8);
+        }
+
+        .bento-icon.green {
+            background: linear-gradient(135deg, #6fbf7f, #4f9e63);
+        }
+
+        .bento-icon.orange {
+            background: linear-gradient(135deg, #f0b199, #e8895f);
+        }
+
+        .bento-icon.teal {
+            background: linear-gradient(135deg, #6fc9bd, #479a90);
+        }
+
+        .bento-icon.blue {
+            background: linear-gradient(135deg, #8fb8e8, #5f8fcf);
+        }
+
+    .bento-card h3 {
+        font-size: 1.15rem;
+        font-weight: 800;
+        color: var(--plum);
+        margin: 1.1rem 0 0.4rem;
+    }
+
+    .bento-card.large h3 {
+        font-size: 1.5rem;
+    }
+
+    .bento-card p {
+        color: var(--gray);
+        font-size: 0.9rem;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .bento-card .bento-decor {
+        position: absolute;
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        background: rgba(180, 142, 201, 0.16);
+        bottom: -50px;
+        right: -50px;
+        z-index: 0;
+    }
+
+    .bento-card > * {
+        position: relative;
+        z-index: 1;
+    }
+
+    .bento-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: var(--plum);
+        background: rgba(255, 255, 255, 0.7);
+        padding: 0.3rem 0.7rem;
+        border-radius: 999px;
+        align-self: flex-start;
+        margin-top: 0.9rem;
+    }
+
+    /* ===== PROCESS ===== */
+    .process-section {
+        padding: 1rem 5% 5.5rem;
+        max-width: 1360px;
+        margin: 0 auto;
+    }
+
+    .process-wrap {
+        background: var(--white);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-card);
+        padding: 3rem;
+        position: relative;
+    }
+
+    .process-steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        position: relative;
+    }
+
+        .process-steps::before {
+            content: "";
+            position: absolute;
+            top: 34px;
+            left: 12%;
+            right: 12%;
+            height: 2px;
+            background: repeating-linear-gradient(90deg, var(--lavender-deep) 0 10px, transparent 10px 20px);
+            z-index: 0;
+        }
+
+    .process-step {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+    }
+
+    .process-number {
+        width: 68px;
+        height: 68px;
+        margin: 0 auto 1.3rem;
+        border-radius: 20px;
+        background: linear-gradient(135deg, var(--lavender), var(--blush));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: var(--plum);
+        box-shadow: var(--shadow-card);
+    }
+
+    .process-step h4 {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: var(--plum);
+        margin-bottom: 0.5rem;
+    }
+
+    .process-step p {
+        color: var(--gray);
+        font-size: 0.9rem;
+        line-height: 1.6;
+        max-width: 260px;
+        margin: 0 auto;
+    }
+
+    /* ===== ABOUT / STATS ===== */
+    .about-section {
+        padding: 1rem 5% 5.5rem;
+        max-width: 1360px;
+        margin: 0 auto;
+    }
+
+    .about-wrap {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+        background: linear-gradient(135deg, var(--lavender) 0%, var(--blush) 100%);
+        border-radius: var(--radius-xl);
+        padding: 3.2rem;
+        box-shadow: var(--shadow-soft);
+    }
+
+    .about-copy h2 {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--plum);
+        line-height: 1.3;
+        margin-bottom: 1rem;
+    }
+
+    .about-copy p {
+        color: var(--plum);
+        opacity: 0.75;
+        line-height: 1.75;
+        margin-bottom: 1.6rem;
+    }
+
+    .about-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+        .about-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            color: var(--plum);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+            .about-list li i {
+                width: 26px;
+                height: 26px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.7);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.75rem;
+                color: #4f9e63;
+            }
+
+    .about-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.2rem;
+    }
+
+    .stat-tile {
+        background: rgba(255, 255, 255, 0.75);
+        border-radius: var(--radius-md);
+        padding: 1.6rem;
+        box-shadow: var(--shadow-card);
+    }
+
+        .stat-tile i {
+            font-size: 1.3rem;
+            color: var(--blush-deep);
+            margin-bottom: 0.7rem;
+            display: inline-block;
+        }
+
+        .stat-tile strong {
+            display: block;
+            font-size: 1.7rem;
+            font-weight: 900;
+            color: var(--plum);
+            line-height: 1.1;
+        }
+
+        .stat-tile span {
+            color: var(--gray);
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+    /* ===== CTA BANNER ===== */
+    .cta-section {
+        padding: 0 5% 5.5rem;
+        max-width: 1360px;
+        margin: 0 auto;
+    }
+
+    .cta-banner {
+        background: var(--plum);
+        border-radius: var(--radius-xl);
+        padding: 3.2rem 3rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        box-shadow: var(--shadow-soft);
+    }
+
+        .cta-banner::before {
+            content: "";
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: rgba(218, 216, 249, 0.18);
+            top: -100px;
+            left: -60px;
+        }
+
+        .cta-banner::after {
+            content: "";
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: rgba(248, 221, 230, 0.18);
+            bottom: -90px;
+            right: -50px;
+        }
+
+        .cta-banner > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-banner h2 {
+            color: var(--white);
+            font-size: 1.9rem;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+        }
+
+        .cta-banner p {
+            color: rgba(255, 255, 255, 0.75);
+            max-width: 480px;
+            margin: 0 auto 1.8rem;
+            line-height: 1.7;
+        }
+
+    .cta-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+        .cta-buttons .primary-cta {
+            background: var(--white);
+            color: var(--plum);
+        }
+
+        .cta-buttons .secondary-cta {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: none;
+        }
+
+    /* ===== FOOTER ===== */
+    .home-footer {
+        padding: 3rem 5% 2rem;
+        max-width: 1360px;
+        margin: 0 auto;
+    }
+
+    .footer-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 2rem;
+        flex-wrap: wrap;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid rgba(53, 43, 56, 0.08);
+    }
+
+    .footer-links {
+        display: flex;
+        gap: 2.2rem;
+        flex-wrap: wrap;
+    }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+            .footer-links a:hover {
+                color: var(--plum);
+            }
+
+    .footer-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        padding-top: 1.4rem;
+        color: var(--gray);
+        font-size: 0.85rem;
+    }
+
+        .footer-bottom i {
+            color: var(--blush-deep);
+            margin: 0 0.15rem;
+        }
+
+    /* ===== RESPONSIVE ===== */
+    @@media (max-width: 991px) {
+        .hero-section {
+            grid-template-columns: 1fr;
+            padding-top: 3rem;
+        }
+
+        .hero-content h1 {
+            font-size: 2.7rem;
+        }
+
+        .hero-visual {
+            min-height: unset;
+            margin-top: 1rem;
+        }
+
+        .bento-grid {
+            grid-template-columns: repeat(2, 1fr);
+            grid-auto-rows: 200px;
+        }
+
+        .bento-card.large {
+            grid-column: span 2;
+            grid-row: span 1;
+        }
+
+        .bento-card.tall {
+            grid-row: span 1;
+        }
+
+        .process-steps {
+            grid-template-columns: 1fr;
+            gap: 2.4rem;
+        }
+
+            .process-steps::before {
+                display: none;
+            }
+
+        .about-wrap {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @@media (max-width: 767px) {
+        .home-nav-links {
+            position: fixed;
+            top: 74px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            flex-direction: column;
+            gap: 0;
+            padding: 0.5rem 5%;
+            box-shadow: var(--shadow-card);
+            transform: translateY(-130%);
+            transition: transform 0.25s ease;
+            z-index: 40;
+        }
+
+            .home-nav-links.open {
+                transform: translateY(0);
+            }
+
+            .home-nav-links a {
+                padding: 0.9rem 0;
+                border-bottom: 1px solid rgba(53, 43, 56, 0.06);
+            }
+
+        .nav-toggle {
+            display: inline-flex;
+        }
+
+        .home-auth .btn-login {
+            display: none;
+        }
+
+        .hero-content h1 {
+            font-size: 2.1rem;
+        }
+
+        .trust-strip-inner {
+            justify-content: center;
+            text-align: center;
+        }
+
+        .bento-grid {
+            grid-template-columns: 1fr;
+            grid-auto-rows: auto;
+        }
+
+        .bento-card.large,
+        .bento-card.wide,
+        .bento-card.tall,
+        .bento-card.solid {
+            grid-column: span 1;
+            grid-row: span 1;
+            min-height: 180px;
+        }
+
+        .process-wrap {
+            padding: 2rem 1.4rem;
+        }
+
+        .about-wrap {
+            padding: 2.2rem 1.4rem;
+        }
+
+        .about-stats {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .cta-banner {
+            padding: 2.4rem 1.4rem;
+        }
+
+        .footer-top,
+        .footer-bottom {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+</style>
+
 <div class="hrms-home">
 
     <!-- NAVBAR -->
@@ -10,7 +1257,7 @@
         <a asp-controller="Home"
            asp-action="Index"
            class="home-brand">
-            <span class="brand-icon">✦</span>
+            <span class="brand-icon"><i class="bi bi-hexagon-fill"></i></span>
 
             <div>
                 <strong>HRMS</strong>
@@ -18,19 +1265,22 @@
             </div>
         </a>
 
-        <div class="home-nav-links">
+        <div class="home-nav-links" id="homeNavLinks">
 
             <a asp-controller="Home"
                asp-action="Index"
                class="active">
+                <i class="bi bi-house-door-fill"></i>
                 Home
             </a>
 
             <a href="#about">
+                <i class="bi bi-info-circle-fill"></i>
                 About
             </a>
 
             <a href="#features">
+                <i class="bi bi-grid-fill"></i>
                 Features
             </a>
 
@@ -41,16 +1291,22 @@
             <a asp-area="Identity"
                asp-page="/Account/Login"
                class="btn-login">
+                <i class="bi bi-box-arrow-in-right"></i>
                 Login
             </a>
 
             <a asp-area="Identity"
                asp-page="/Account/Register"
                class="btn-register">
+                <i class="bi bi-person-plus-fill"></i>
                 Register
             </a>
 
         </div>
+
+        <button type="button" class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+            <i class="bi bi-list"></i>
+        </button>
 
     </nav>
 
@@ -58,10 +1314,14 @@
     <!-- HERO -->
     <section class="hero-section">
 
+        <span class="hero-blob one"></span>
+        <span class="hero-blob two"></span>
+        <span class="hero-blob three"></span>
+
         <div class="hero-content">
 
             <div class="welcome-badge">
-                <span></span>
+                <i class="bi bi-stars"></i>
                 WELCOME TO HRMS
             </div>
 
@@ -74,7 +1334,7 @@
             <p>
                 A centralized platform to manage your workforce,
                 simplify HR operations and streamline everyday
-                HR operations.
+                HR operations &mdash; all in one warm, elegant workspace.
             </p>
 
             <div class="hero-buttons">
@@ -82,6 +1342,7 @@
                 <a asp-area="Identity"
                    asp-page="/Account/Login"
                    class="primary-cta">
+                    <i class="bi bi-box-arrow-in-right"></i>
                     Login
                     <span>→</span>
                 </a>
@@ -89,57 +1350,102 @@
                 <a asp-area="Identity"
                    asp-page="/Account/Register"
                    class="secondary-cta">
+                    <i class="bi bi-person-plus-fill"></i>
                     Create Account
                 </a>
 
             </div>
 
+            <div class="trust-row">
+                <div class="trust-avatars">
+                    <span>HR</span>
+                    <span><i class="bi bi-person-fill"></i></span>
+                    <span><i class="bi bi-person-fill"></i></span>
+                    <span>+</span>
+                </div>
+                <div class="trust-text">
+                    <strong>One workspace, every team</strong>
+                    <small>HR, managers &amp; employees, together</small>
+                </div>
+            </div>
+
         </div>
 
 
-        <!-- HERO CARD -->
-        <div class="hero-card">
+        <!-- HERO VISUAL -->
+        <div class="hero-visual">
 
-            <div class="hero-card-header">
+            <div class="hero-card">
 
-                <div class="mini-logo">
-                    ✦
+                @* <div class="floating-chip chip-one">
+                    <i class="bi bi-check-lg"></i>
+                    <span>
+                        Leave approved
+                        <span class="chip-sub">Just now</span>
+                    </span>
+                </div> *@
+
+                <div class="hero-card-header">
+                    <div class="who">
+                        <div class="mini-logo">
+                            <i class="bi bi-hexagon-fill"></i>
+                        </div>
+                        <div>
+                            <strong>HRMS</strong>
+                            <small>Workforce Hub</small>
+                        </div>
+                    </div>
+                    <div class="live-dot">
+                        <i class="bi bi-broadcast"></i>
+                    </div>
                 </div>
 
-                <div>
-                    <strong>HRMS</strong>
-                    <small>Workforce Hub</small>
+                <div class="hero-card-body">
+
+                    <div class="mini-stat">
+                        <i class="bi bi-people-fill"></i>
+                        <span>Employees</span>
+                        <strong>Management</strong>
+                    </div>
+
+                    <div class="mini-stat">
+                        <i class="bi bi-clock-fill"></i>
+                        <span>Attendance</span>
+                        <strong>Tracking</strong>
+                    </div>
+
+                    <div class="mini-stat">
+                        <i class="bi bi-calendar-check-fill"></i>
+                        <span>Leave</span>
+                        <strong>Requests</strong>
+                    </div>
+
+                    <div class="mini-stat">
+                        <i class="bi bi-cash-coin"></i>
+                        <span>Payroll</span>
+                        <strong>Processing</strong>
+                    </div>
+
                 </div>
 
-            </div>
-
-            <div class="hero-card-body">
-
-                <div class="mini-stat">
-                    <span>Employees</span>
-                    <strong>Management</strong>
+                <div class="hero-progress">
+                    <div class="row">
+                        Onboarding setup
+                        <small>78%</small>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-fill"></div>
+                    </div>
                 </div>
 
-                <div class="mini-stat">
-                    <span>Attendance</span>
-                    <strong>Tracking</strong>
+                <div class="floating-chip chip-two">
+                    <i class="bi bi-graph-up-arrow"></i>
+                    <span>
+                        All systems on track
+                        <span class="chip-sub">Live status</span>
+                    </span>
                 </div>
 
-                <div class="mini-stat">
-                    <span>Leave</span>
-                    <strong>Requests</strong>
-                </div>
-
-                <div class="mini-stat">
-                    <span>Payroll</span>
-                    <strong>Processing</strong>
-                </div>
-
-            </div>
-
-            <div class="hero-card-footer">
-                <span>●</span>
-                Centralized HR Operations
             </div>
 
         </div>
@@ -147,174 +1453,265 @@
     </section>
 
 
-    <!-- FEATURES -->
-    @* <section class="features-section" id="features">
+    <!-- TRUST STRIP -->
+    <section class="trust-strip">
+        <div class="trust-strip-inner">
 
-        <div class="section-heading">
-
-            <div>
-                <span class="section-label">EXPLORE</span>
-
-                <h2>
-                    Everything in one workspace.
-                </h2>
+            <div class="trust-item">
+                <i class="bi bi-shield-lock-fill"></i>
+                Secure by design
             </div>
 
+            <div class="trust-item">
+                <i class="bi bi-lightning-charge-fill"></i>
+                Fast &amp; reliable
+            </div>
+
+            <div class="trust-item">
+                <i class="bi bi-phone-fill"></i>
+                Fully responsive
+            </div>
+
+            <div class="trust-item">
+                <i class="bi bi-layers-fill"></i>
+                All-in-one platform
+            </div>
+
+            <div class="trust-item">
+                <i class="bi bi-emoji-smile-fill"></i>
+                Built for people
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- FEATURES (BENTO GRID) -->
+    <section class="features-section" id="features">
+
+        <div class="section-heading">
+            <div>
+                <span class="section-label"><i class="bi bi-compass-fill"></i> EXPLORE</span>
+                <h2>Everything in one workspace.</h2>
+            </div>
             <p>
                 Manage the core operations of your Human
                 Resource Management System from one place.
             </p>
-
         </div>
 
+        <div class="bento-grid">
 
-        <div class="feature-grid">
+            <div class="bento-card large">
+                <span class="bento-decor"></span>
+                <div class="bento-icon purple"><i class="bi bi-people-fill"></i></div>
+                <div>
+                    <h3>Employee Management</h3>
+                    <p>Maintain organized, up-to-date employee profiles, roles and organizational information in one elegant workspace.</p>
+                    <span class="bento-tag"><i class="bi bi-star-fill"></i> Most used</span>
+                </div>
+            </div>
 
-            <a asp-controller="Employee"
-               asp-action="Index"
-               class="feature-card">
+            <div class="bento-card solid">
+                <div class="bento-icon green"><i class="bi bi-clock-fill"></i></div>
+                <div>
+                    <h3>Attendance</h3>
+                    <p>Track daily attendance and presence effortlessly.</p>
+                </div>
+            </div>
 
-                <div class="feature-icon purple">♟</div>
+            <div class="bento-card solid">
+                <div class="bento-icon orange"><i class="bi bi-calendar-check-fill"></i></div>
+                <div>
+                    <h3>Leave Management</h3>
+                    <p>Submit and review leave requests with ease.</p>
+                </div>
+            </div>
 
-                <h3>Employees</h3>
+            <div class="bento-card tall">
+                <div class="bento-icon teal"><i class="bi bi-cash-coin"></i></div>
+                <div>
+                    <h3>Payroll</h3>
+                    <p>Simplify salary processing and payroll-related operations, kept accurate and on time every cycle.</p>
+                </div>
+            </div>
 
-                <p>
-                    Manage employee profiles and
-                    organizational information.
-                </p>
+            <div class="bento-card wide">
+                <div class="bento-icon pink"><i class="bi bi-star-fill"></i></div>
+                <div>
+                    <h3>Performance Management</h3>
+                    <p>Review employee performance and manage evaluations smoothly, all in a single dashboard.</p>
+                </div>
+            </div>
 
-                <span class="feature-link">
-                    View Employees →
-                </span>
-
-            </a>
-
-
-            <a asp-controller="Department"
-               asp-action="Index"
-               class="feature-card">
-
-                <div class="feature-icon blue">▦</div>
-
-                <h3>Departments</h3>
-
-                <p>
-                    Organize teams and maintain
-                    department information.
-                </p>
-
-                <span class="feature-link">
-                    View Departments →
-                </span>
-
-            </a>
-
-
-            <a asp-controller="Attendance"
-               asp-action="Index"
-               class="feature-card">
-
-                <div class="feature-icon green">◷</div>
-
-                <h3>Attendance</h3>
-
-                <p>
-                    Track daily attendance and
-                    employee presence.
-                </p>
-
-                <span class="feature-link">
-                    View Attendance →
-                </span>
-
-            </a>
-
-
-            <a asp-controller="LeaveRequest"
-               asp-action="Index"
-               class="feature-card">
-
-                <div class="feature-icon orange">✓</div>
-
-                <h3>Leave Requests</h3>
-
-                <p>
-                    Submit, review and manage
-                    employee leave requests.
-                </p>
-
-                <span class="feature-link">
-                    View Requests →
-                </span>
-
-            </a>
-
-
-            <a asp-controller="Payroll"
-               asp-action="Index"
-               class="feature-card">
-
-                <div class="feature-icon teal">₹</div>
-
-                <h3>Payroll</h3>
-
-                <p>
-                    Manage salary and payroll
-                    related information.
-                </p>
-
-                <span class="feature-link">
-                    View Payroll →
-                </span>
-
-            </a>
-
-
-            <a asp-controller="PerformanceReview"
-               asp-action="Index"
-               class="feature-card">
-
-                <div class="feature-icon pink">★</div>
-
-                <h3>Performance</h3>
-
-                <p>
-                    Review employee performance
-                    and evaluations.
-                </p>
-
-                <span class="feature-link">
-                    View Performance →
-                </span>
-
-            </a>
-
-        </div>
-
-    </section> *@
-
-
-    <!-- ABOUT -->
-    <section class="about-section" id="about">
-
-        <div class="about-card">
-
-            <span class="section-label">
-                ABOUT HRMS
-            </span>
-
-            <h2>
-                A simpler way to manage your workforce.
-            </h2>
-
-            <p>
-                HRMS brings employee management, attendance,
-                leave management, payroll and performance
-                operations together into one centralized platform.
-            </p>
+            <div class="bento-card solid">
+                <div class="bento-icon blue"><i class="bi bi-diagram-3-fill"></i></div>
+                <div>
+                    <h3>Departments</h3>
+                    <p>Organize teams and department information.</p>
+                </div>
+            </div>
 
         </div>
 
     </section>
 
+
+    <!-- PROCESS -->
+    <section class="process-section">
+        <div class="process-wrap">
+
+            <div class="section-heading" style="margin-bottom:2.4rem;">
+                <div>
+                    <span class="section-label"><i class="bi bi-signpost-split-fill"></i> HOW IT WORKS</span>
+                    <h2>Get your workspace running in three simple steps.</h2>
+                </div>
+            </div>
+
+            <div class="process-steps">
+
+                <div class="process-step">
+                    <div class="process-number"><i class="bi bi-person-plus-fill"></i></div>
+                    <h4>Create your account</h4>
+                    <p>Register in minutes and set up your HR profile.</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="process-number"><i class="bi bi-columns-gap"></i></div>
+                    <h4>Set up your workspace</h4>
+                    <p>Organize employees, departments and everyday operations.</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="process-number"><i class="bi bi-graph-up-arrow"></i></div>
+                    <h4>Grow with ease</h4>
+                    <p>Track attendance, leave, payroll and performance in one place.</p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ABOUT -->
+    <section class="about-section" id="about">
+        <div class="about-wrap">
+
+            <div class="about-copy">
+                <span class="section-label"><i class="bi bi-info-circle-fill"></i> ABOUT HRMS</span>
+                <h2>A simpler, warmer way to manage your workforce.</h2>
+                <p>
+                    HRMS brings employee management, attendance, leave management,
+                    payroll and performance operations together into one centralized,
+                    beautifully designed platform.
+                </p>
+
+                <ul class="about-list">
+                    <li><i class="bi bi-check-lg"></i> One platform for every HR process</li>
+                    <li><i class="bi bi-check-lg"></i> Designed to feel effortless, every day</li>
+                    <li><i class="bi bi-check-lg"></i> Built to scale with your organization</li>
+                </ul>
+            </div>
+
+            <div class="about-stats">
+
+                <div class="stat-tile">
+                    <i class="bi bi-grid-1x2-fill"></i>
+                    <strong>5</strong>
+                    <span>Core HR Modules</span>
+                </div>
+
+                <div class="stat-tile">
+                    <i class="bi bi-shield-check"></i>
+                    <strong>100%</strong>
+                    <span>Secure Access</span>
+                </div>
+
+                <div class="stat-tile">
+                    <i class="bi bi-phone-fill"></i>
+                    <strong>24/7</strong>
+                    <span>Anywhere Access</span>
+                </div>
+
+                <div class="stat-tile">
+                    <i class="bi bi-layers-fill"></i>
+                    <strong>1</strong>
+                    <span>Unified Platform</span>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- CTA BANNER -->
+    <section class="cta-section">
+        <div class="cta-banner">
+            <h2>Ready to simplify your HR operations?</h2>
+            <p>Join HRMS today and bring your entire workforce management into one elegant, centralized workspace.</p>
+
+            <div class="cta-buttons">
+                <a asp-area="Identity" asp-page="/Account/Register" class="primary-cta">
+                    <i class="bi bi-person-plus-fill"></i>
+                    Create Account
+                </a>
+                <a asp-area="Identity" asp-page="/Account/Login" class="secondary-cta">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    Login
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="home-footer">
+
+        <div class="footer-top">
+
+            <a asp-controller="Home" asp-action="Index" class="home-brand">
+                <span class="brand-icon"><i class="bi bi-hexagon-fill"></i></span>
+                <div>
+                    <strong>HRMS</strong>
+                    <small>WORKFORCE HUB</small>
+                </div>
+            </a>
+
+            <div class="footer-links">
+                <a asp-controller="Home" asp-action="Index">Home</a>
+                <a href="#about">About</a>
+                <a href="#features">Features</a>
+                <a asp-area="Identity" asp-page="/Account/Login">Login</a>
+                <a asp-area="Identity" asp-page="/Account/Register">Register</a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <span>&copy; @DateTime.Now.Year HRMS &mdash; Workforce Hub. All rights reserved.</span>
+            <span>Made with <i class="bi bi-heart-fill"></i> for great workplaces.</span>
+        </div>
+
+    </footer>
+
 </div>
+
+<script>
+    (function() {
+        var toggle = document.getElementById('navToggle');
+        var links = document.getElementById('homeNavLinks');
+        if (toggle && links) {
+            toggle.addEventListener('click', function() {
+                links.classList.toggle('open');
+            });
+            links.querySelectorAll('a').forEach(function(a) {
+                a.addEventListener('click', function() {
+                    links.classList.remove('open');
+                });
+            });
+        }
+    })();
+</script>
+
