@@ -1,0 +1,101 @@
+# This workflow will build and deploy a .NET Core app
+# to an Azure Web App when a commit is pushed to the master branch.
+
+name: Build and deploy ASP.Net Core app to an Azure Web App
+
+env:
+  AZURE_WEBAPP_NAME: HRMS-app
+  AZURE_WEBAPP_PACKAGE_PATH: '.'
+  DOTNET_VERSION: '10'
+
+on:
+  push:
+    branches: ["master"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+
+  # =========================
+  # BUILD JOB
+  # =========================
+
+  build:
+    runs-on: windows-latest
+
+    steps:
+
+      # Checkout source code
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      # Setup .NET
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      # Cache NuGet packages
+      - name: Set up dependency caching
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
+      # Restore dependencies
+      - name: Restore dependencies
+        run: dotnet restore
+
+      # Build project
+      - name: Build with dotnet
+        run: dotnet build --configuration Release --no-restore
+
+      # Publish project
+      - name: Publish application
+        run: dotnet publish --configuration Release --no-build --output ./myapp
+
+      # Upload published application
+      - name: Upload artifact for deployment
+        uses: actions/upload-artifact@v4
+        with:
+          name: .net-app
+          path: ./myapp
+
+
+  # =========================
+  # DEPLOY JOB
+  # =========================
+
+  deploy:
+    permissions:
+      contents: none
+
+    runs-on: windows-latest
+
+    needs: build
+
+    environment:
+      name: Development
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+
+      # Download published application
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: .net-app
+          path: ./myapp
+
+      # Deploy to Azure Web App
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ./myapp
